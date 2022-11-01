@@ -14,8 +14,6 @@ Como solução, pensamos na criação de uma aplicação que permite o cadastro 
 
 ### Usuário básico:
 
-### Usuário comum:
-
 - Visualizar as casas de adoção e animais para adoção (precisa estar logado para visualizar os abrigos).
 - Editar perfil.
 - Solicitar adoção - entrar em contato com o anunciante.
