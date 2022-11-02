@@ -3,7 +3,7 @@
     "browser": true,
     "es2021": true
   },
-  "extends": ["plugin:react/recommended", "airbnb", "prettier"],
+  "extends": [],
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
@@ -19,23 +19,6 @@
     "react/react-in-jsx-scope": "off",
     "import/prefer-default-export": "off",
     "react/jsx-props-no-spreading": "off",
-    "jsx-a11y/label-has-associated-control": [
-      "error",
-      {
-        "required": {
-          "some": ["nesting", "id"]
-        }
-      }
-    ],
-    "jsx-quotes": ["error", "prefer-single"],
-    "jsx-a11y/label-has-for": [
-      "error",
-      {
-        "required": {
-          "some": ["nesting", "id"]
-        }
-      }
-    ],
     "react/jsx-filename-extension": "off"
   }
 }
