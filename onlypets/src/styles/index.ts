@@ -28,6 +28,7 @@ button{
     --grey-5: #F5F4EF;
 
     --white: #FFFFFF;
+    --black: #000000;
 
     --font-title-1:'Baroneys', sans-serif;
     
