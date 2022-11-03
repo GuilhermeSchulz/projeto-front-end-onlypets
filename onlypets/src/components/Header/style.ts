@@ -11,11 +11,11 @@ export const StyledHeader = styled.header`
   .header-container {
     padding: 20px 0;
     width: 90%;
-    max-width: 1200px;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 20px;
+    max-width: 1200px;
   }
 
   .header-container__butons {
@@ -27,6 +27,7 @@ export const StyledHeader = styled.header`
   .with-user {
     flex-direction: row;
     justify-content: space-between;
+    position: relative;
   }
 
   .header-container__profile {
@@ -40,7 +41,6 @@ export const StyledHeader = styled.header`
     justify-content: space-between;
     align-items: center;
     cursor: pointer;
-    position: relative;
   }
 
   .header-container__profile img {
@@ -55,7 +55,7 @@ export const StyledHeader = styled.header`
     display: block;
     position: absolute;
     width: 279px;
-    right: 5%;
+    right: 0;
     top: 100px;
     z-index: 10;
     padding: 20px 10px 0px;
