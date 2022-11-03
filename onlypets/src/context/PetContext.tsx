@@ -110,7 +110,6 @@ export const PetProvider = ({ children }: iProviderProps) => {
       theme: 'light',
     });
   };
-
   const getPets = async () => {
     try {
       const { data } = await instance.get<iPets>('pets');
@@ -120,7 +119,6 @@ export const PetProvider = ({ children }: iProviderProps) => {
       console.log(error);
     }
   };
-
   const postPets = async (obj: iPets) => {
     try {
       const { data } = await instance.post<iPets>('pets', obj);
