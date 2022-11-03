@@ -20,6 +20,8 @@ button{
     --color-secondary-1:#F6DF51;
     --color-secondary-hover: #F8E77B;
 
+    --color-sucess: #3FE864;
+    --color-negative: #E83F5B;
     --black-opacity: rgba(0,0,0, 0.5);
 
     --grey-0: #3F3A3E;

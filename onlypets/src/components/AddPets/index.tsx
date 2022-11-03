@@ -1,30 +1,29 @@
-import { FirstAcessModal } from './styles';
 import '../../styles/inputs.css';
 import '../../styles/text.css';
-import { Button } from '../Button/styles';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import { Button } from '../Button/styles';
+import { AddPetsModal } from './styles';
 
-interface iFirstAcess {
-  address: string;
-  image: string;
-  contact: string;
-  whichAnimal: string;
+interface iAddPets {
+  name: string;
+  castrated: string;
   temperament: string;
   size: string;
   age: string;
-  city: string;
+  vaccinated: string;
+  whichAnimal: string;
+  url: string;
+  content: string;
 }
 
-export const FirstAcess = () => {
+export const AddPets = () => {
   const schema = yup.object({
-    address: yup.string().required('Campo obrigatório!'),
-    image: yup.string().required('Campo obrigatório!'),
-    contact: yup.string().required('Campo obrigatório!'),
-    whichAnimal: yup
+    name: yup.string().required('Campo obrigatório!'),
+    castrated: yup
       .string()
-      .required('É necessário escolher um tipo de animal!')
+      .required('É necessário escolher uma opção!')
       .nullable(),
     temperament: yup
       .string()
@@ -32,97 +31,68 @@ export const FirstAcess = () => {
       .nullable(),
     size: yup.string().required('É necessário escolher um tamanho!').nullable(),
     age: yup.string().required('É necessário escolher uma idade!').nullable(),
-    city: yup.string().required('Campo obrigatório!'),
+    vaccinated: yup
+      .string()
+      .required('É necessário escolher uma opção!')
+      .nullable(),
+    whichAnimal: yup
+      .string()
+      .required('É necessário escolher um tipo de animal!')
+      .nullable(),
+    url: yup.string().required('Campo obrigatório!'),
+    content: yup.string().required('Campo obrigatório!'),
   });
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<iFirstAcess>({
+  } = useForm<iAddPets>({
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = (data: iFirstAcess) => {
+  const onSubmit = (data: iAddPets) => {
     console.log(data);
   };
 
   return (
-    <FirstAcessModal>
+    <AddPetsModal>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <h3 className='form__title'>
-          Para completar o perfil precisamos de mais informações
-        </h3>
+        <h3 className='form__title'>Adicione um amigo em busca de dono!</h3>
 
         <div>
           <div className='column'>
-            <label className='form__label' htmlFor='address'>
-              Endereço:
+            <label className='form__label' htmlFor='name'>
+              Nome:
             </label>
             <input
               className='inputsPattern'
               type='text'
-              id='address'
-              placeholder='Digite seu endereço'
-              {...register('address')}
+              id='name'
+              placeholder='Digite seu nome'
+              {...register('name')}
             />
             <p className='form__label form__label--error'>
-              {errors.address?.message}
+              {errors.name?.message}
             </p>
 
-            <label className='form__label' htmlFor='image'>
-              Imagem de perfil:
-            </label>
-            <input
-              className='inputsPattern'
-              type='text'
-              id='image'
-              placeholder='URL da sua foto de perfil'
-              {...register('image')}
-            />
-            <p className='form__label form__label--error'>
-              {errors.image?.message}
-            </p>
-          </div>
-
-          <div className='column'>
-            <label className='form__label' htmlFor='contact'>
-              Contato:
-            </label>
-            <input
-              className='inputsPattern'
-              type='text'
-              id='contact'
-              placeholder='Melhor forma de entrar em contato!'
-              {...register('contact')}
-            />
-            <p className='form__label form__label--error'>
-              {errors.contact?.message}
-            </p>
-
-            <label className='form__label' htmlFor='whichAnimal'>
-              Qual tipo do animal?:
+            <label className='form__label' htmlFor='castrated'>
+              Castração:
             </label>
             <select
               className='inputsPattern form__select'
-              id='whichAnimal'
-              {...register('whichAnimal')}
+              id='castrated'
+              {...register('castrated')}
             >
-              <option value='gato'>Gato</option>
-              <option value='cão'>Cachorro</option>
+              <option value='Sim'>Sim</option>
+              <option value='Não'>Não</option>
             </select>
             <p className='form__label form__label--error'>
-              {errors.whichAnimal?.message}
+              {errors.castrated?.message}
             </p>
-          </div>
-        </div>
 
-        <h3 className='form__title'>Diga-nos o que você busca em um amigo!</h3>
-
-        <div>
-          <div className='column'>
             <label className='form__label' htmlFor='temperament'>
-              Escolha o temperamento?:
+              Selecione o temperamento?:
             </label>
             <select
               className='inputsPattern form__select'
@@ -145,7 +115,7 @@ export const FirstAcess = () => {
             </p>
 
             <label className='form__label' htmlFor='size'>
-              Qual é o tamanho?:
+              Porte?:
             </label>
             <select
               className='inputsPattern form__select'
@@ -163,7 +133,7 @@ export const FirstAcess = () => {
 
           <div className='column'>
             <label className='form__label' htmlFor='age'>
-              Qual a idade do animal?:
+              Idade:
             </label>
             <select
               className='inputsPattern form__select'
@@ -179,26 +149,67 @@ export const FirstAcess = () => {
               {errors.age?.message}
             </p>
 
-            <label className='form__label' htmlFor='city'>
-              Cidade:
+            <label className='form__label' htmlFor='vaccinated'>
+              Vacinação:
+            </label>
+            <select
+              className='inputsPattern form__select'
+              id='vaccinated'
+              {...register('vaccinated')}
+            >
+              <option value='Sim'>Sim</option>
+              <option value='Não'>Não</option>
+            </select>
+            <p className='form__label form__label--error'>
+              {errors.vaccinated?.message}
+            </p>
+
+            <label className='form__label' htmlFor='whichAnimal'>
+              Tipo:
+            </label>
+            <select
+              className='inputsPattern form__select'
+              id='whichAnimal'
+              {...register('whichAnimal')}
+            >
+              <option value='gato'>Gato</option>
+              <option value='cão'>Cachorro</option>
+            </select>
+            <p className='form__label form__label--error'>
+              {errors.whichAnimal?.message}
+            </p>
+
+            <label className='form__label' htmlFor='url'>
+              Foto:
             </label>
             <input
               className='inputsPattern'
               type='text'
-              id='city'
-              placeholder='Digite o nome da cidade'
-              {...register('city')}
+              id='url'
+              placeholder='URL da sua foto de perfil'
+              {...register('url')}
             />
             <p className='form__label form__label--error'>
-              {errors.city?.message}
+              {errors.url?.message}
             </p>
           </div>
         </div>
-
+        <label className='form__label' htmlFor='content'>
+          Informações adicionais:
+        </label>
+        <textarea
+          className='inputsPattern inputsPattern--textarea'
+          id='content'
+          placeholder='Digite informações sobre o pet!'
+          {...register('content')}
+        ></textarea>
+        <p className='form__label form__label--error'>
+          {errors.content?.message}
+        </p>
         <Button className='form__btn' type='submit'>
           Enviar
         </Button>
       </form>
-    </FirstAcessModal>
+    </AddPetsModal>
   );
 };
