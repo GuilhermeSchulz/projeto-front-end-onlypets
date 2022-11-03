@@ -1,7 +1,7 @@
 .form__title {
   color: var(--grey-0);
 
-  font-size: var(--title-size-3);
+  font-size: var(--text-size-1);
   font-weight: var(--text-weight-2);
 }
 
