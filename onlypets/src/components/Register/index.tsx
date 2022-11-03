@@ -13,7 +13,7 @@ interface IRegister{
 }
 
 const schema = yup.object({
-    name: yup.string().required('O campo Nome Completo é obrigatório').min(8),
+    name: yup.string().required('O campo Nome Completo é obrigatório').min(3),
     email: yup.string().required('O campo Email é obrigatório'),
     password: yup.string().matches(/[A-Z]/, 'Deve conter ao menos 1 letra maiúscula')
     .matches(/[a-z]/, 'Deve conter ao menos 1 letra minuscula')
