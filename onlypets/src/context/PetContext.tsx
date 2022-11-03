@@ -20,19 +20,19 @@ interface iPets {
   id: number;
 }
 interface iPetsEdit {
-    title?: string;
-    content?: string;
-    contact?: string;
-    temperament?: string;
-    size?: string;
-    age?: string;
-    type?: string;
-    city?: string;
-    castrated?: string;
-    vaccinated?: string;
-    userId?: number;
-    id?: number;
-  }
+  title?: string;
+  content?: string;
+  contact?: string;
+  temperament?: string;
+  size?: string;
+  age?: string;
+  type?: string;
+  city?: string;
+  castrated?: string;
+  vaccinated?: string;
+  userId?: number;
+  id?: number;
+}
 interface iPetsProvider {
   pets: iPets | null;
   filterPets: iPets | null;
@@ -41,9 +41,11 @@ interface iPetsProvider {
   postPets: (obj: iPets) => Promise<void>;
   editPets: (obj: iPets) => Promise<void>;
   deletePets: (petId: number) => Promise<void>;
+  specificPet: (petId: number) => Promise<void>;
 }
 
 export const PetContext = createContext({} as iPetsProvider);
+
 export const PetProvider = ({ children }: iProviderProps) => {
   const [pets, setPets] = useState<iPets | null>(null);
   const [filterPets, setFilterPets] = useState<iPets | null>(null);
@@ -111,7 +113,7 @@ export const PetProvider = ({ children }: iProviderProps) => {
 
   const getPets = async () => {
     try {
-      const { data } = await instance.get('pets');
+      const { data } = await instance.get<iPets>('pets');
       setPets(data);
       console.log(pets);
     } catch (error) {
@@ -147,19 +149,26 @@ export const PetProvider = ({ children }: iProviderProps) => {
       console.log(error);
     }
   };
-
+  const specificPet = async (petId: number) => {
+    try {
+      const { data } = await instance.get(`pets/${petId}`);
+      setFilterPets(data);
+      console.log(filterPets);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   useEffect(() => {
-    const loadPets = async () => {  
+    const loadPets = async () => {
       try {
-        const { data } = await instance.get('pets');
+        const { data } = await instance.get<iPets>('pets');
         setPets(data);
-        } catch (error) {
-          console.log(error);
-        }
+      } catch (error) {
+        console.log(error);
       }
+    };
     loadPets();
   }, []);
-
 
   return (
     <>
@@ -169,6 +178,7 @@ export const PetProvider = ({ children }: iProviderProps) => {
           postPets,
           editPets,
           deletePets,
+          specificPet,
           pets,
           filterPets,
           setFilterPets,
