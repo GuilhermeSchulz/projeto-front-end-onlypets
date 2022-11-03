@@ -34,7 +34,7 @@ export const Login = () => {
                 
                 <StyledFieldInput>
                     Email:
-                    <input id='email' type='email' placeholder='Digite p seu email...' {...register('email')} />
+                    <input id='email' type='email' placeholder='Digite o seu email...' {...register('email')} />
                     <span>{errors.email?.message}</span>
                 </StyledFieldInput>
 
