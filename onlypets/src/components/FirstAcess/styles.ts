@@ -63,6 +63,10 @@ export const FirstAcessModal = styled.div`
     align-self: center;
   }
 
+  p {
+    margin-top: -32px;
+  }
+
   .form__btn {
     width: 100%;
     min-width: 280px;
