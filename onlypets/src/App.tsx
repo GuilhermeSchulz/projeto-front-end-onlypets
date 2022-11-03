@@ -1,15 +1,15 @@
-import React from "react";
-import "./App.css";
-import { GlobalStyles } from "./styles";
+import './App.css';
+import { FirstAcess } from './components/FirstAcess';
+
+import { GlobalStyles } from './styles';
 
 function App() {
-  return(
+  return (
     <>
-      <GlobalStyles/>
-      
+      <GlobalStyles />
+      <FirstAcess />
     </>
-
-  )
+  );
 }
 
 export default App;

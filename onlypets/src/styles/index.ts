@@ -20,6 +20,8 @@ button{
     --color-secondary-1:#F6DF51;
     --color-secondary-hover: #F8E77B;
 
+    --black-opacity: rgba(0,0,0, 0.5);
+
     --grey-0: #3F3A3E;
     --grey-1: #69626A;
     --grey-2: #9FA09A;
@@ -43,6 +45,10 @@ button{
     --main-title-mobile-size: 24px;
 
     --text-weight-1: 700;
-    --text-weight-2: 400;
+    --text-weight-2: 600;
+    --text-weight-3: 500;
+
+    --border-radius-1: 8px;
+    --border-radius-2: 6px;
 }
 `;
