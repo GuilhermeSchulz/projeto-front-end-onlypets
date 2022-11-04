@@ -37,7 +37,22 @@ export interface iReportsContext {
   getReports(): Promise<void>;
   submitReport(data: iReportsRegister): Promise<void>;
   openModal(): void,
-  closeModal(): void
+  closeModal(): void,
+  reports: iReports[] | null,
+  deleteReport(id: number): Promise<void>,
+  editReport(id: number, data: iEditReport): Promise<void>
+}
+
+interface iEditReport {
+  title: string,
+  description: string
+}
+
+interface iEditResponse {
+  userId: string,
+  title: string,
+  description: string,
+  id: number
 }
 
 export const ReportsContext = createContext({} as iReportsContext);
@@ -77,9 +92,27 @@ export const ReportsProvider = ({ children }: iReportsProviderProps) => {
     }
   };
 
+  const deleteReport = async (id: number): Promise<void> => {
+    try {
+      const delReport = await instance.delete<void>(`/reports/${id}`);
+      console.log(delReport)
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  const editReport = async (id: number, data: iEditReport): Promise<void> => {
+    try {
+      const edit = await instance.patch<iEditResponse>(`/reports/${id}`, data)
+      console.log(edit)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   return (
     <ReportsContext.Provider
-      value={{ getReports, submitReport, openModal, closeModal }}>
+      value={{ getReports, submitReport, openModal, closeModal, reports, deleteReport, editReport }}>
       {children}
     </ReportsContext.Provider>
   );

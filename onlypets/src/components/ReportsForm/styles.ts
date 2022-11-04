@@ -32,7 +32,7 @@ export const StyledReportsForm = styled.div`
 
         label{
             p {
-                color: #E83F5B;
+                color: var(--color-secondary-1);
                 font-size: var(--text-size-3);
                 margin-bottom: 8px;
                 margin-top: -4px;
