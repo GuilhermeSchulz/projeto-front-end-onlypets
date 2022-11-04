@@ -4,6 +4,7 @@ export const StyledUl = styled.ul`
   width: 90%;
   max-width: 1200px;
   margin: 0 auto;
+  padding-bottom: 10px;
   display: flex;
   gap: 20px;
   overflow-x: auto;
