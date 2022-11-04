@@ -5,7 +5,7 @@ interface iReportsProviderProps {
   children: ReactNode;
 }
 
-interface iReports {
+export interface iReports {
   userId: string;
   title: string;
   description: string;
@@ -32,7 +32,7 @@ export interface iReportsContext {
   openModal(): void,
   closeModal(): void,
   reports: iReports[] | null,
-  deleteReport(id: number): Promise<void>,
+  deleteReport(id: number): void,
   editReport(id: number, data: iEditReport): Promise<void>
 }
 
@@ -52,19 +52,10 @@ export const ReportsContext = createContext({} as iReportsContext);
 
 export const ReportsProvider = ({ children }: iReportsProviderProps) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [reports, setReports] = useState([
-    {
-      userId: "1",
-      title: "animais passando fome",
-      description: "o dono saiu de viagem e deixou os animais passando fome na casa sozinhos",
-      adress: "Rua dos Anjos, 290",
-      city: "São Paulo",
-      id: 2
-    }
-  ] as iReports[] | null);
+  const [reports, setReports] = useState([] as iReports[] | null);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  console.log(reports)
   const openModal = (): void => {
     setIsModalOpen(!isModalOpen)
   }
@@ -94,9 +85,9 @@ export const ReportsProvider = ({ children }: iReportsProviderProps) => {
     }
   };
 
-  const deleteReport = async (id: number): Promise<void> => {
+  const deleteReport = (id: number): void => {
     try {
-      const delReport = await instance.delete<void>(`/reports/${id}`);
+      const delReport = instance.delete<void>(`/reports/${id}`);
       console.log(delReport)
     } catch (error) {
       console.error(error);

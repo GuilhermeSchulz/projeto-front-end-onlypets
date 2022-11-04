@@ -8,6 +8,7 @@ export const StyledReportsList = styled.ul`
 
     width: 293px;
     padding: 16px;
+    gap: 8px;
     
     background-color: var(--color-primary-1);
     border-radius: var(--border-radius-1);
