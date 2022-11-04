@@ -26,4 +26,13 @@ export const StyledFieldInput = styled.label`
       border-color: var(--color-primary-hover);
     }
   }
+
+  .input--small {
+    width: 240px;
+  }
+
+  .input--large {
+    width: 240px;
+    height: 68px;
+  }
 `;
