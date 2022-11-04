@@ -13,7 +13,7 @@ interface iAddPets {
   size: string;
   age: string;
   vaccinated: string;
-  whichAnimal: string;
+  type: string;
   url: string;
   content: string;
 }
@@ -35,7 +35,7 @@ export const AddPets = () => {
       .string()
       .required('É necessário escolher uma opção!')
       .nullable(),
-    whichAnimal: yup
+    type: yup
       .string()
       .required('É necessário escolher um tipo de animal!')
       .nullable(),
@@ -92,7 +92,7 @@ export const AddPets = () => {
             </p>
 
             <label className='form__label' htmlFor='temperament'>
-              Selecione o temperamento?:
+              Selecione o temperamento:
             </label>
             <select
               className='inputsPattern form__select'
@@ -115,7 +115,7 @@ export const AddPets = () => {
             </p>
 
             <label className='form__label' htmlFor='size'>
-              Porte?:
+              Porte:
             </label>
             <select
               className='inputsPattern form__select'
@@ -164,19 +164,19 @@ export const AddPets = () => {
               {errors.vaccinated?.message}
             </p>
 
-            <label className='form__label' htmlFor='whichAnimal'>
+            <label className='form__label' htmlFor='type'>
               Tipo:
             </label>
             <select
               className='inputsPattern form__select'
-              id='whichAnimal'
-              {...register('whichAnimal')}
+              id='type'
+              {...register('type')}
             >
               <option value='gato'>Gato</option>
               <option value='cão'>Cachorro</option>
             </select>
             <p className='form__label form__label--error'>
-              {errors.whichAnimal?.message}
+              {errors.type?.message}
             </p>
 
             <label className='form__label' htmlFor='url'>
