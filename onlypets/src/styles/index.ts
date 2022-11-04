@@ -52,4 +52,20 @@ button{
     --border-radius-1: 8px;
     --border-radius-2: 6px;
 }
+
+::-webkit-scrollbar {
+    background-color: var(--grey-4);
+    height: 10px;
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--color-primary-1);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: var(--color-primary-hover);
+    border-radius: 4px;
+  }
 `;
