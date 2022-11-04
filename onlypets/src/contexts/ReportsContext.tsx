@@ -10,14 +10,7 @@ interface iReports {
   title: string;
   description: string;
   adress: string;
-  id: number;
-}
-
-interface iMyReports {
-  userId: string;
-  title: string;
-  description: string;
-  adress: string;
+  city: string;
   id: number;
 }
 
@@ -59,7 +52,16 @@ export const ReportsContext = createContext({} as iReportsContext);
 
 export const ReportsProvider = ({ children }: iReportsProviderProps) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [reports, setReports] = useState([] as iReports[] | null);
+  const [reports, setReports] = useState([
+    {
+      userId: "1",
+      title: "animais passando fome",
+      description: "o dono saiu de viagem e deixou os animais passando fome na casa sozinhos",
+      adress: "Rua dos Anjos, 290",
+      city: "São Paulo",
+      id: 2
+    }
+  ] as iReports[] | null);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -76,7 +78,7 @@ export const ReportsProvider = ({ children }: iReportsProviderProps) => {
 
     try {
       instance.defaults.headers.common.authorization = `Bearer ${token}`;
-      const { data } = await instance.get<iMyReports[]>('/reports');
+      const { data } = await instance.get<iReports[]>('/reports');
       setReports(data);
     } catch (error) {
       console.error(error);
