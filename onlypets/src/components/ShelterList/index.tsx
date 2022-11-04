@@ -31,7 +31,7 @@ export const ShelterList = () => {
     <StyledUl>
       {shelters.map((elem) => {
         return (
-          <li className='card-shelter' id={elem.id + ''}>
+          <li className='card card-shelter' id={elem.id + ''}>
             <img src={elem.imgProfile} alt={'foto de perfil: ' + elem.user} />
             <div>
               <h3>{elem.user}</h3>
