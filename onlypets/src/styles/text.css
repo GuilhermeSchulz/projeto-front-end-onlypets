@@ -15,3 +15,9 @@
 .form__label--error {
   color: var(--color-negative);
 }
+
+.title__name {
+  font-size: var(--text-size-2);
+  font-weight: var(--text-weight-2);
+  color: var(--grey-0);
+}

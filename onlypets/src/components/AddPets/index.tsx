@@ -1,10 +1,12 @@
 import '../../styles/inputs.css';
 import '../../styles/text.css';
+import '../../styles/closeIcon.css';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { Button } from '../Button/styles';
 import { AddPetsModal } from './styles';
+import { SlClose } from 'react-icons/sl';
 
 interface iAddPets {
   name: string;
@@ -60,6 +62,7 @@ export const AddPets = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <h3 className='form__title'>Adicione um amigo em busca de dono!</h3>
 
+        <SlClose className='icon' size={20} />
         <div>
           <div className='column'>
             <label className='form__label' htmlFor='name'>
