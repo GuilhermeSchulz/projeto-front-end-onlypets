@@ -11,6 +11,12 @@
   border: none;
 }
 
+.inputsPattern--textarea {
+  height: 110px;
+
+  padding-top: 10px;
+}
+
 .form__select {
   position: relative;
 
