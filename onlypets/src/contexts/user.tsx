@@ -7,7 +7,7 @@ import {
   useState,
 } from 'react';
 import { toast } from 'react-toastify';
-import { instance } from '../services/api';
+import { instance } from '../services/instance';
 
 interface iUserProviderProps {
   children: ReactNode;
