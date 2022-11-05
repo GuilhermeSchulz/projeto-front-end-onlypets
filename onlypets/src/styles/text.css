@@ -11,3 +11,7 @@
   font-weight: var(--text-weight-3);
   font-size: var(--text-size-3);
 }
+
+.form__label--error {
+  color: var(--color-negative);
+}
