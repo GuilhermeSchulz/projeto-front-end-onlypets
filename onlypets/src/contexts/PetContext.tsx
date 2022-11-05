@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from 'react';
-import { instance } from '../services/api';
+import { instance } from '../services/instance';
 import { toast } from 'react-toastify';
 
 interface iProviderProps {

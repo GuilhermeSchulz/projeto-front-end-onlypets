@@ -1,13 +1,23 @@
 import styled from 'styled-components';
 
+export const StyledUlTitle = styled.h2`
+  padding: 20px 0;
+  text-align: center;
+  font-size: var(--title-size-2);
+`;
+
 export const StyledUl = styled.ul`
   width: 90%;
-  max-width: 1200px;
+  max-width: 1300px;
   margin: 0 auto;
-  padding-bottom: 10px;
   display: flex;
   gap: 20px;
   overflow-x: auto;
+  padding: 50px 0 100px 0;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
 
   .card {
     height: 330px;

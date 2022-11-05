@@ -1,4 +1,4 @@
-import { StyledUl } from '../List/style';
+import { StyledUl, StyledUlTitle } from '../List/style';
 const pets = [
   {
     userId: '1',
@@ -106,22 +106,25 @@ const pets = [
 
 export const PetList = () => {
   return (
-    <StyledUl>
-      {pets.map((elem) => {
-        return (
-          <li className='card card-pet' id={elem.id + ''}>
-            <img src={elem.img} alt={'Animal: ' + elem.title} />
-            <div>
-              <h3>{elem.title}</h3>
-              <div className='card-pet__tags'>
-                <span>{elem.sex}</span>
-                <span>{elem.temperament}</span>
-                <span>{'idade: ' + elem.age}</span>
+    <>
+      <StyledUlTitle>Conheça o seu amigo!</StyledUlTitle>
+      <StyledUl>
+        {pets.map((elem) => {
+          return (
+            <li className='card card-pet' id={elem.id + ''}>
+              <img src={elem.img} alt={'Animal: ' + elem.title} />
+              <div>
+                <h3>{elem.title}</h3>
+                <div className='card-pet__tags'>
+                  <span>{elem.sex}</span>
+                  <span>{elem.temperament}</span>
+                  <span>{'idade: ' + elem.age}</span>
+                </div>
               </div>
-            </div>
-          </li>
-        );
-      })}
-    </StyledUl>
+            </li>
+          );
+        })}
+      </StyledUl>
+    </>
   );
 };

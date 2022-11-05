@@ -5,7 +5,7 @@ import { Button } from '../Button/styles';
 import { useState } from 'react';
 
 export const Header = () => {
-  const user = true;
+  const user = false;
   const [open, setOpen] = useState(false);
 
   function handleClick() {

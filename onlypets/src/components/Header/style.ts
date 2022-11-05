@@ -3,19 +3,20 @@ import styled from 'styled-components';
 export const StyledHeader = styled.header`
   display: flex;
   justify-content: center;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 
   img {
-    height: 75px;
+    height: 55px;
   }
 
   .header-container {
-    padding: 20px 0;
+    padding: 10px 0 20px 0;
     width: 90%;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 20px;
-    max-width: 1200px;
+    max-width: 1300px;
   }
 
   .header-container__butons {
@@ -32,9 +33,9 @@ export const StyledHeader = styled.header`
 
   .header-container__profile {
     background-color: var(--color-secondary-1);
-    font-size: var(--title-size-3);
+    font-size: var(--text-size-2);
     font-weight: var(--text-weight-1);
-    width: 279px;
+    width: 200px;
     padding: 10px;
     border-radius: 8px;
     display: flex;
@@ -44,8 +45,8 @@ export const StyledHeader = styled.header`
   }
 
   .header-container__profile img {
-    height: 65px;
-    width: 65px;
+    height: 40px;
+    width: 40px;
     border-radius: 50%;
     object-fit: cover;
   }
@@ -54,9 +55,9 @@ export const StyledHeader = styled.header`
     background-color: var(--color-secondary-1);
     display: block;
     position: absolute;
-    width: 279px;
+    width: 200px;
     right: 0;
-    top: 100px;
+    top: 65px;
     z-index: 10;
     padding: 20px 10px 0px;
     text-align: end;
