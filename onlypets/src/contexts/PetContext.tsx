@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 interface iProviderProps {
   children: React.ReactNode;
 }
-interface iPets {
+export interface iPets {
   title: string;
   content: string;
   contact: string;
@@ -16,7 +16,9 @@ interface iPets {
   city: string;
   castrated: string;
   vaccinated: string;
+  sex: string;
   userId: number;
+  img: string;
   id: number;
 }
 interface iPetsEdit {
@@ -34,7 +36,7 @@ interface iPetsEdit {
   id?: number;
 }
 interface iPetsProvider {
-  pets: iPets | null;
+  pets: iPets[] | null;
   filterPets: iPets | null;
   setFilterPets: React.Dispatch<React.SetStateAction<iPets | null>>;
   getPets: () => Promise<void>;
@@ -47,8 +49,9 @@ interface iPetsProvider {
 export const PetContext = createContext({} as iPetsProvider);
 
 export const PetProvider = ({ children }: iProviderProps) => {
-  const [pets, setPets] = useState<iPets | null>(null);
+  const [pets, setPets] = useState<iPets[] | null>(null);
   const [filterPets, setFilterPets] = useState<iPets | null>(null);
+  const token = localStorage.getItem('@TOKEN: ONLYPETS');
 
   const sucessPost = () => {
     toast.success('Animal cadastrado com sucesso!', {
@@ -112,7 +115,7 @@ export const PetProvider = ({ children }: iProviderProps) => {
   };
   const getPets = async () => {
     try {
-      const { data } = await instance.get<iPets>('pets');
+      const { data } = await instance.get<iPets[]>('pets');
       setPets(data);
       console.log(pets);
     } catch (error) {
@@ -121,6 +124,7 @@ export const PetProvider = ({ children }: iProviderProps) => {
   };
   const postPets = async (obj: iPets) => {
     try {
+      instance.defaults.headers.authorization = `Bearer ${token}`;
       const { data } = await instance.post<iPets>('pets', obj);
       console.log(data);
       sucessPost();
@@ -131,6 +135,7 @@ export const PetProvider = ({ children }: iProviderProps) => {
   };
   const editPets = async (obj: iPetsEdit) => {
     try {
+      instance.defaults.headers.authorization = `Bearer ${token}`;
       const { data } = await instance.patch<iPets>('pets', obj);
       console.log(data);
       sucessEdit();
@@ -141,6 +146,7 @@ export const PetProvider = ({ children }: iProviderProps) => {
   };
   const deletePets = async (petId: number) => {
     try {
+      instance.defaults.headers.authorization = `Bearer ${token}`;
       await instance.delete(`pets/${petId}`);
       sucessDelete();
     } catch (error) {
@@ -149,6 +155,7 @@ export const PetProvider = ({ children }: iProviderProps) => {
   };
   const specificPet = async (petId: number) => {
     try {
+      instance.defaults.headers.authorization = `Bearer ${token}`;
       const { data } = await instance.get(`pets/${petId}`);
       setFilterPets(data);
       console.log(filterPets);
@@ -159,7 +166,7 @@ export const PetProvider = ({ children }: iProviderProps) => {
   useEffect(() => {
     const loadPets = async () => {
       try {
-        const { data } = await instance.get<iPets>('pets');
+        const { data } = await instance.get<iPets[]>('pets');
         setPets(data);
       } catch (error) {
         console.log(error);

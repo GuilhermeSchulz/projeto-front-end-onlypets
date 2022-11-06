@@ -63,7 +63,7 @@ interface iLoginArgs {
 
 interface iUserResponse {
   user: iUser;
-  token: string;
+  accessToken: string;
 }
 
 export const Context = createContext<iUserProviderContext>(
@@ -126,7 +126,8 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
       setLoading(true);
       const { data } = await instance.post<iUserResponse>('login', body);
       setUser(data.user);
-      localStorage.setItem('@TOKEN: ONLYPETS', data.token);
+      localStorage.setItem('@TOKEN: ONLYPETS', data.accessToken);
+      console.log(data);
       toast.success('Login realizado com sucesso!', {
         position: 'bottom-right',
         autoClose: 2000,
@@ -159,8 +160,9 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
     const token = localStorage.getItem('@TOKEN: ONLYPETS');
 
     async function getShelters(): Promise<void> {
-      if (token) {
+      if (token !== null) {
         try {
+          instance.defaults.headers.authorization = `Bearer ${token}`;
           const { data } = await instance.get<iUser[]>('users');
           const shelters = data.filter((elem) => elem.shelter === true);
           setShelters(shelters);
