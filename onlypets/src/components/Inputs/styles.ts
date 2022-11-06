@@ -27,6 +27,17 @@ export const StyledFieldInput = styled.label`
     }
   }
 
+  @media (max-width: 900px) {
+    && {
+      width: 100%;
+      margin: 0 auto;
+    }
+    input,
+    select {
+      width: 100%;
+    }
+  }
+
   .input--small {
     width: 240px;
   }

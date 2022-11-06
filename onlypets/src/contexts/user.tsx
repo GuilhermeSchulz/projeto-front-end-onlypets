@@ -25,6 +25,12 @@ interface iUserProviderContext {
   shelters: iUser[] | null;
   filteredShelters: iUser[] | null;
   setFilteredShelters: Dispatch<SetStateAction<iUser[] | null>>;
+  showModalLogin: boolean;
+  setShowModalLogin: Dispatch<SetStateAction<boolean>>;
+  handleModalLogin(): void;
+  showModalRegister: boolean;
+  setShowModalRegister: Dispatch<SetStateAction<boolean>>;
+  handleModalRegister(): void;
 }
 
 interface iRegisterUserArgs {
@@ -71,13 +77,24 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
   const [filteredShelters, setFilteredShelters] = useState<iUser[] | null>(
     null
   );
+  const [showModalLogin, setShowModalLogin] = useState(false);
+  const [showModalRegister, setShowModalRegister] = useState(false);
+
+  function handleModalLogin() {
+    setShowModalLogin(!showModalLogin);
+  }
+
+  function handleModalRegister() {
+    setShowModalRegister(!showModalRegister);
+  }
+  //setar estado de mostrar modal de completar o cadastro
 
   async function registerUser(body: iRegisterUserArgs): Promise<iUser | void> {
     try {
       setLoading(true);
       const { data } = await instance.post<iUser>('register', body);
       toast.success('Usuário criado com sucesso!', {
-        position: 'top-right',
+        position: 'bottom-right',
         autoClose: 2000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -89,7 +106,7 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
     } catch (error) {
       console.error(error);
       toast.error('Email já cadastrado', {
-        position: 'top-right',
+        position: 'bottom-right',
         autoClose: 2000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -99,6 +116,8 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
       });
     } finally {
       setLoading(false);
+      setShowModalRegister(false);
+      setShowModalLogin(true);
     }
   }
 
@@ -109,7 +128,7 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
       setUser(data.user);
       localStorage.setItem('@TOKEN: ONLYPETS', data.token);
       toast.success('Login realizado com sucesso!', {
-        position: 'top-right',
+        position: 'bottom-right',
         autoClose: 2000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -118,10 +137,11 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
         progress: undefined,
       });
       //redirecionamento
+      //setar estado de mostrar modal de completar o cadastro
     } catch (error) {
       console.error(error);
       toast.error('Combinação de email/senha errada!', {
-        position: 'top-right',
+        position: 'bottom-right',
         autoClose: 2000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -131,6 +151,7 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
       });
     } finally {
       setLoading(false);
+      setShowModalLogin(false);
     }
   }
 
@@ -162,6 +183,12 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
         shelters,
         filteredShelters,
         setFilteredShelters,
+        showModalLogin,
+        setShowModalLogin,
+        handleModalLogin,
+        showModalRegister,
+        setShowModalRegister,
+        handleModalRegister,
       }}
     >
       {children}

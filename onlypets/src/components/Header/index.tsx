@@ -2,11 +2,13 @@ import { StyledHeader } from './style';
 import PublicLogo from '../../assets/public-logo.svg';
 import StrictLogo from '../../assets/strict-logo.svg';
 import { Button } from '../Button/styles';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { Context } from '../../contexts/user';
 
 export const Header = () => {
   const user = false;
   const [open, setOpen] = useState(false);
+  const { handleModalLogin, handleModalRegister } = useContext(Context);
 
   function handleClick() {
     setOpen(!open);
@@ -41,12 +43,14 @@ export const Header = () => {
             <Button
               type='button'
               className='button__color--yellow button__size--small'
+              onClick={handleModalLogin}
             >
               Logar
             </Button>
             <Button
               type='button'
               className='button__color--primary button__size--small'
+              onClick={handleModalRegister}
             >
               Cadastrar
             </Button>

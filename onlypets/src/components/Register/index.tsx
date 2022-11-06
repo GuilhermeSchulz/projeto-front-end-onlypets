@@ -4,10 +4,13 @@ import { Container } from './styles';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { StyledFieldInput } from '../Inputs/styles';
+import { Context } from '../../contexts/user';
+import { useContext, useEffect } from 'react';
 
 interface IRegister {
   name: string;
   email: string;
+  shelter: boolean;
   password: string;
 }
 
@@ -25,15 +28,24 @@ const schema = yup.object({
 });
 
 export const Register = () => {
+  const { handleModalLogin, handleModalRegister, registerUser } =
+    useContext(Context);
+
   const {
     register,
     handleSubmit,
+    reset,
+    formState,
     formState: { errors },
   } = useForm<IRegister>({
     resolver: yupResolver(schema),
   });
 
-  function registerUser() {}
+  useEffect(() => {
+    if (formState.isSubmitSuccessful) {
+      reset();
+    }
+  }, [formState, reset]);
 
   return (
     <Container>
@@ -60,6 +72,17 @@ export const Register = () => {
           />
           <span>{errors.email?.message}</span>
         </StyledFieldInput>
+        <StyledFieldInput>
+          Abrigo:
+          <select id='shelter' {...register('shelter')}>
+            <option value='' disabled>
+              É um abrigo?
+            </option>
+            <option value='true'>Sim</option>
+            <option value='false'>Não</option>
+          </select>
+          <span>{errors.email?.message}</span>
+        </StyledFieldInput>
 
         <StyledFieldInput>
           Senha:
@@ -74,7 +97,15 @@ export const Register = () => {
 
         <div className='button'>
           <Button className='button__color--primary'>Cadastrar</Button>
-          <Button className='button__color--grey'>Voltar ao Login</Button>
+          <Button
+            className='button__color--grey'
+            onClick={() => {
+              handleModalRegister();
+              handleModalLogin();
+            }}
+          >
+            Voltar ao Login
+          </Button>
         </div>
       </form>
     </Container>

@@ -4,6 +4,8 @@ import { Container } from './styles';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { StyledFieldInput } from '../Inputs/styles';
+import { Context } from '../../contexts/user';
+import { useContext, useEffect } from 'react';
 
 interface ILogin {
   email: string;
@@ -16,20 +18,28 @@ const schema = yup.object({
 });
 
 export const Login = () => {
+  const { handleModalRegister, handleModalLogin, login } = useContext(Context);
+
   const {
     register,
     handleSubmit,
+    reset,
+    formState,
     formState: { errors },
   } = useForm<ILogin>({
     resolver: yupResolver(schema),
   });
 
-  function loginUser() {}
+  useEffect(() => {
+    if (formState.isSubmitSuccessful) {
+      reset();
+    }
+  }, [formState, reset]);
 
   return (
     <Container>
       <h1>Login</h1>
-      <form onSubmit={handleSubmit(loginUser)}>
+      <form onSubmit={handleSubmit(login)}>
         <StyledFieldInput>
           Email:
           <input
@@ -54,7 +64,15 @@ export const Login = () => {
 
         <div className='button'>
           <Button className='button__color--primary'>Logar</Button>
-          <Button className='button__color--grey'>Quero me cadastrar</Button>
+          <Button
+            className='button__color--grey'
+            onClick={() => {
+              handleModalRegister();
+              handleModalLogin();
+            }}
+          >
+            Quero me cadastrar
+          </Button>
         </div>
       </form>
     </Container>
