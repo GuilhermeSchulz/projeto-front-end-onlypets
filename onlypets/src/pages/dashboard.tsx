@@ -6,12 +6,15 @@ import { Button } from '../components/Button/styles';
 import { PetList } from '../components/PetList';
 import { ReportsList } from '../components/ReportsList';
 import { ShelterDiv } from '../components/ShelterDescription/style';
-import { ReportsModal } from '../components/ReportsList/ReportsModal/index';
+import { ReportsModal } from '../components/ReportsList/ReportsModal/';
 import { useContext } from 'react';
 import { ReportsContext } from '../contexts/ReportsContext';
+import { ListPets } from '../components/ListPets';
+import { Context } from '../contexts/user';
 
 export const Dashboard = () => {
   const { isModalOpen } = useContext(ReportsContext);
+  const { showModalListPets, setShowModalListPets } = useContext(Context);
 
   return (
     <div>
@@ -30,13 +33,17 @@ export const Dashboard = () => {
           dos nossos amiguinhos antes que eles encontrem a felicidade de ter um
           novo lar e uma nova família.
         </p>
-        <Button className='button__color--primary button__size--large'>
+        <Button
+          className='button__color--primary button__size--large'
+          onClick={() => setShowModalListPets(!showModalListPets)}
+        >
           Ver animais!
         </Button>
       </ShelterDiv>
       <PetList />
       <StyledUlTitle>Denuncias:</StyledUlTitle>
       <ReportsList />
+      {showModalListPets && <ListPets />}
       {isModalOpen && <ReportsModal />}
     </div>
   );
