@@ -5,6 +5,8 @@ import { UserProvider } from './contexts/user';
 import { PetProvider } from './contexts/PetContext';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Dashboard } from './pages/dashboard';
+import { ReportsProvider } from './contexts/ReportsContext';
 
 function App() {
   return (
@@ -12,7 +14,10 @@ function App() {
       <GlobalStyles />
       <UserProvider>
         <PetProvider>
-          <Homepage />
+          <ReportsProvider>
+            {/* <Homepage /> */}
+            <Dashboard />
+          </ReportsProvider>
         </PetProvider>
       </UserProvider>
       <ToastContainer />

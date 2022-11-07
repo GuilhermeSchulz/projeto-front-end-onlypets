@@ -6,12 +6,17 @@ import { StyledReportItem } from './styles';
 
 export const ReportsItem = ({ report }: any) => {
   const { openModal, deleteReport } = useContext(ReportsContext);
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState<React.SetStateAction<boolean>>(false);
 
   const contentRef: React.MutableRefObject<any> = useRef();
 
   const openMenu = () => {
     setOpen(!open);
+  };
+
+  const handleView = () => {
+    openModal();
+    setOpen(false);
   };
 
   useEffect(() => {
@@ -35,7 +40,7 @@ export const ReportsItem = ({ report }: any) => {
       </figure>
       {open ? (
         <ul id={report.id} ref={contentRef}>
-          <li onClick={openModal}>Visualizar</li>
+          <li onClick={() => handleView()}>Visualizar</li>
           <li onClick={() => deleteReport(report.id)}>Excluir</li>
         </ul>
       ) : null}

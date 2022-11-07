@@ -9,6 +9,7 @@ export const StyledReportsList = styled.ul`
   width: 293px;
   padding: 16px;
   gap: 8px;
+  margin: 48px auto;
 
   background-color: var(--color-primary-1);
   border-radius: var(--border-radius-1);
@@ -28,7 +29,5 @@ export const StyledReportsList = styled.ul`
   @media (min-width: 580px) {
     width: 90%;
     max-width: 1300px;
-
-    margin: 48px auto;
   }
 `;

@@ -14,7 +14,7 @@ export const Dashboard = () => {
   const { isModalOpen } = useContext(ReportsContext);
 
   return (
-    <>
+    <div>
       <Header />
       <BannerImage>
         <div className='banner-content__div--img'>
@@ -38,6 +38,6 @@ export const Dashboard = () => {
       <StyledUlTitle>Denuncias:</StyledUlTitle>
       <ReportsList />
       {isModalOpen && <ReportsModal />}
-    </>
+    </div>
   );
 };
