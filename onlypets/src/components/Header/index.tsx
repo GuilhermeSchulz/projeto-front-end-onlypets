@@ -20,7 +20,9 @@ export const Header = () => {
           <img src={StrictLogo} alt='Logo OnlyPets' />
           <span onClick={handleClick} className='header-container__profile'>
             Usuário
-            <img src={user.imgProfile} alt='Foto de Perfil' />
+            {user.imgProfile != null && (
+              <img src={user.imgProfile} alt='Foto de Perfil' />
+            )}
           </span>
           {open ? (
             <ul className='header-container__menu' role='menu'>
