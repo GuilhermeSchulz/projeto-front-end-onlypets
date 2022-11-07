@@ -17,7 +17,7 @@ export const ReportsItem = ({ report }: any) => {
   useEffect(() => {
     const handleOutclick = (evt: any) => {
       const target = evt.target;
-      !contentRef.current.contains(target) && setOpen(false);
+      !contentRef.current?.contains(target) && setOpen(false);
     };
 
     document.addEventListener('mousedown', handleOutclick);

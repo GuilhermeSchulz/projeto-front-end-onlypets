@@ -72,3 +72,13 @@ export const Banner = styled.div`
     }
   }
 `;
+
+export const BannerImage = styled.div`
+  width: 100%;
+  height: fit-content;
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
+`;
