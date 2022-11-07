@@ -22,9 +22,14 @@ export const StyledReportItem = styled.li`
     text-overflow: ellipsis;
   }
 
-  figure {
+  .circle__option {
+    color: var(--color-primary-1);
     cursor: pointer;
   }
+
+  /* figure {
+    cursor: pointer;
+  } */
 
   ul {
     background-color: var(--color-secondary-1);
@@ -36,6 +41,19 @@ export const StyledReportItem = styled.li`
     padding: 0 10px;
     text-align: end;
     border-radius: 0 0 8px 8px;
+    animation: showOption 1s ease;
+
+    ::after {
+      content: '';
+      width: 15px;
+      height: 15px;
+      display: block;
+      position: absolute;
+      bottom: 65px;
+      right: 0px;
+      transform: skew(-15deg, -25deg);
+      background-color: var(--color-secondary-1);
+    }
 
     li {
       padding: 12px 0;
@@ -44,6 +62,20 @@ export const StyledReportItem = styled.li`
 
     li:last-child {
       border: none;
+    }
+
+    @keyframes showOption {
+      0% {
+        opacity: 0;
+        top: 10%;
+      }
+      50% {
+        opacity: 0.5;
+      }
+      100% {
+        opacity: 1;
+        top: 60%;
+      }
     }
   }
 `;

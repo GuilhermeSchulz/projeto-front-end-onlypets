@@ -3,6 +3,7 @@ import menu from '../../../assets/frame-menu.svg';
 import { ReportsContext } from '../../../contexts/ReportsContext';
 // import { ReportsModal } from '../ReportsModal';
 import { StyledReportItem } from './styles';
+import { HiOutlineDotsCircleHorizontal } from 'react-icons/hi';
 
 export const ReportsItem = ({ report }: any) => {
   const { openModal, deleteReport } = useContext(ReportsContext);
@@ -35,11 +36,16 @@ export const ReportsItem = ({ report }: any) => {
   return (
     <StyledReportItem key={report.id}>
       <p>{report.title}</p>
-      <figure onClick={openMenu}>
+      <HiOutlineDotsCircleHorizontal
+        onClick={openMenu}
+        size={25}
+        className='circle__option'
+      />
+      {/* <figure onClick={openMenu}>
         <img src={menu} alt='' />
-      </figure>
+      </figure> */}
       {open ? (
-        <ul id={report.id} ref={contentRef}>
+        <ul id={report.id} ref={contentRef} className='option__ul'>
           <li onClick={() => handleView()}>Visualizar</li>
           <li onClick={() => deleteReport(report.id)}>Excluir</li>
         </ul>
