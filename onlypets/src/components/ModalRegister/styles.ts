@@ -16,6 +16,7 @@ export const ModalRegisterStyled = styled.div`
   display: flex;
   width: 800px;
   height: 90%;
+  max-height: 600px;
   justify-content: center;
   align-items: center;
   margin: 0 auto;
@@ -49,7 +50,7 @@ export const ModalDiv = styled.div`
     margin-top: -30px;
   }
   p {
-    margin-top: 50px;
+    margin-top: 20px;
     font-size: var(--text-size-2);
   }
 

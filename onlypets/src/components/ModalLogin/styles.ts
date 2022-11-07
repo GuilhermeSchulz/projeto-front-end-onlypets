@@ -1,3 +1,4 @@
+import { Player } from '@lottiefiles/react-lottie-player';
 import styled from 'styled-components';
 
 export const Background = styled.div`
@@ -16,6 +17,7 @@ export const ModalLoginStyled = styled.div`
   display: flex;
   width: 800px;
   height: 90%;
+  max-height: 600px;
   justify-content: center;
   align-items: center;
   margin: 0 auto;
@@ -49,7 +51,7 @@ export const ModalDiv = styled.div`
     margin-top: -30px;
   }
   p {
-    margin-top: 50px;
+    margin-top: 20px;
     font-size: var(--text-size-2);
   }
 
@@ -67,3 +69,6 @@ export const ModalDiv = styled.div`
     }
   }
 `;
+export const StyledPlayer = styled(Player)`
+transform: scale(1.5);
+`
