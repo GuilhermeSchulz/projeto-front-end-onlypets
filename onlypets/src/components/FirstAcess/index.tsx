@@ -1,10 +1,12 @@
 import { FirstAcessModal } from './styles';
 import '../../styles/inputs.css';
 import '../../styles/text.css';
+import '../../styles/closeIcon.css';
 import { Button } from '../Button/styles';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import { SlClose } from 'react-icons/sl';
 
 interface iFirstAcess {
   address: string;
@@ -53,6 +55,8 @@ export const FirstAcess = () => {
         <h3 className='form__title'>
           Para completar o perfil precisamos de mais informações
         </h3>
+
+        <SlClose className='icon' size={20} />
 
         <div>
           <div className='column'>

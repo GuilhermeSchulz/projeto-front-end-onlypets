@@ -25,6 +25,8 @@ export const FirstAcessModal = styled.div`
     border-radius: var(--border-radius-1);
 
     padding: 40px 20px;
+
+    position: relative;
   }
 
   h3 {
