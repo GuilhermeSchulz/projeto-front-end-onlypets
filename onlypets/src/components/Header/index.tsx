@@ -6,9 +6,8 @@ import { useContext, useState } from 'react';
 import { Context } from '../../contexts/user';
 
 export const Header = () => {
-  const user = false;
   const [open, setOpen] = useState(false);
-  const { handleModalLogin, handleModalRegister } = useContext(Context);
+  const { handleModalLogin, handleModalRegister, user } = useContext(Context);
 
   function handleClick() {
     setOpen(!open);
@@ -21,10 +20,7 @@ export const Header = () => {
           <img src={StrictLogo} alt='Logo OnlyPets' />
           <span onClick={handleClick} className='header-container__profile'>
             Usuário
-            <img
-              src='https://img.freepik.com/fotos-gratis/close-de-um-gatinho-ruivo-fofo-olhando-para-a-camera-isolada-em-uma-parede-branca_181624-45452.jpg?w=740&t=st=1667448161~exp=1667448761~hmac=9091120f34a23fcdb71ff62601867a3ced363fb2f3e02ffcda67704f44f80894'
-              alt='Foto de Perfil'
-            />
+            <img src={user.imgProfile} alt='Foto de Perfil' />
           </span>
           {open ? (
             <ul className='header-container__menu' role='menu'>
