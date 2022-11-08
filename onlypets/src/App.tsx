@@ -4,7 +4,7 @@ import { UserProvider } from './contexts/user';
 import { PetProvider } from './contexts/PetContext';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { ShelterPage } from './pages/ShelterPage';
+import { RoutesMain } from './routes';
 
 function App() {
   return (
@@ -12,7 +12,7 @@ function App() {
       <GlobalStyles />
       <UserProvider>
         <PetProvider>
-          <ShelterPage />
+          <RoutesMain />
         </PetProvider>
       </UserProvider>
       <ToastContainer />
