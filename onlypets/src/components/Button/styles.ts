@@ -34,15 +34,15 @@ export const Button = styled.button`
   }
 
   &&.button__size--large {
-    width: 90%;
+    width: 100%;
     max-width: 330px;
   }
   &&.button__size--medium {
-    width: 90%;
+    width: 100%;
     max-width: 240px;
   }
   &&.button__size--small {
-    width: 90%;
+    width: 100%;
     max-width: 121px;
   }
 `;

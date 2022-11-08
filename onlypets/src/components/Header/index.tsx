@@ -7,19 +7,19 @@ import { Context } from '../../contexts/user';
 
 export const Header = () => {
   const [open, setOpen] = useState(false);
-  const { handleModalLogin, handleModalRegister, user } = useContext(Context);
+  const { handleModalLogin, handleModalRegister, user, logout } = useContext(Context);
 
   function handleClick() {
     setOpen(!open);
   }
-
+  
   return (
     <StyledHeader>
       {user ? (
         <div className='header-container with-user'>
           <img src={StrictLogo} alt='Logo OnlyPets' />
           <span onClick={handleClick} className='header-container__profile'>
-            Usuário
+            {`${user.user}`}
             {user.imgProfile != null && (
               <img src={user.imgProfile} alt='Foto de Perfil' />
             )}
@@ -30,7 +30,7 @@ export const Header = () => {
               <li>Ver meus anúncios</li>
               <li>Adicionar amigo para adoção</li>
               <li>Editar perfil</li>
-              <li>Sair</li>
+              <li onClick={logout}>Sair</li>
             </ul>
           ) : null}
         </div>

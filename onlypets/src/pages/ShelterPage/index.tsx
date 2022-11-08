@@ -1,30 +1,50 @@
-import { Button } from '../../components/Button/styles';
+/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Header } from '../../components/Header';
 import { PetList } from '../../components/PetList';
-import { ReportsList } from '../../components/ReportsList';
-import { BannerImage, DivReports, DivStyled } from './styles';
-import { Context } from '../../contexts/user';
-import { useContext } from 'react';
-import { AddPets } from '../../components/AddPets';
-import { ListPets } from '../../components/ListPets';
+import { BannerImage, DivStyled } from './styles';
+import { iUser } from '../../contexts/user';
+import { useContext, useEffect, useState } from 'react';
 import { PetContext } from '../../contexts/PetContext';
 import BannerImg from '../../assets/img-shelter-page.svg';
+import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { instance } from '../../services/instance';
+import { Button } from '../../components/Button/styles';
 
 export const ShelterPage = () => {
-  const {
-    showModalAddPet,
-    handleModalAddPet,
-    showModalPetsShelter,
-    handleModalPetsShelter,
-  } = useContext(Context);
+  const { filterPets, setFilterPets, pets } = useContext(PetContext);
+  const [shelter, setShelter] = useState<iUser | null>(null);
 
-  const { filterPets, setFilterPets } = useContext(PetContext);
+  const { id } = useParams();
 
-  const handlePets = () => {
-    const filter = filterPets?.filter((elem) => elem.userId == 1);
-    setFilterPets(filter);
-  };
-
+  const navigate = useNavigate();
+  const back = () => {
+    setFilterPets(pets)
+    navigate(-1)}
+    useEffect(() => {
+      const token = localStorage.getItem('@TOKEN: ONLYPETS');
+      const handlePets = () => {
+        const filter = filterPets?.filter((elem) => elem.userId === id);
+        setFilterPets(filter);
+      };
+      async function getShelter(): Promise<void> {
+        if (token !== null) {
+          try {
+            instance.defaults.headers.authorization = `Bearer ${token}`;
+            const { data } = await instance.get<iUser>(`users/${id}`);
+  
+            setShelter(data);
+          } catch (error) {
+            console.error(error);
+          }
+        }
+      }
+      getShelter();
+      handlePets();
+    }, []);
+  
+    console.log(filterPets)
   return (
     <>
       <Header />
@@ -32,7 +52,7 @@ export const ShelterPage = () => {
         <img src={BannerImg} alt='' />
       </BannerImage>
       <DivStyled>
-        <h2>Abrigo dos pets!</h2>
+        <h2>{shelter?.user}</h2>
         <p>
           Somos uma organização sem fins lucrativos que busca trazer um pouco de
           alegria para humanos através da adoção de animais que foram
@@ -50,20 +70,13 @@ export const ShelterPage = () => {
           amiguinhos e também amigos humanos que possam dar o mesmo bem-estar a
           eles em seus lares.
         </p>
-        <Button
-          className='button__size--large button__color--primary'
-          onClick={handleModalPetsShelter}
-        >
-          Ver animais!
-        </Button>
+      <Button className='button__color--yellow' onClick={back}>Voltar</Button>
       </DivStyled>
-      <PetList />
-      <DivReports>
-        <h2>Denuncias</h2>
-        <ReportsList />
-      </DivReports>
-      {showModalAddPet && <AddPets />}
-      {showModalPetsShelter && <ListPets />}
+      {
+        filterPets && filterPets?.length > 0?
+        (<PetList />):
+        null
+      }
     </>
   );
 };

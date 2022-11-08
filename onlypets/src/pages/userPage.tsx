@@ -11,7 +11,7 @@ import { Context } from '../contexts/user';
 import '../styles/specificPositions.css';
 
 export const UserPage = () => {
-  const { openModal, setOpenModal } = useContext(Context);
+  const { openModalReports, setOpenModalReports } = useContext(Context);
 
   return (
     <>
@@ -21,7 +21,7 @@ export const UserPage = () => {
           <img src={ImgBanner} alt='Cão e gato onlypets' />
         </div>
         <Button
-          onClick={() => setOpenModal(true)}
+          onClick={() => setOpenModalReports(true)}
           className='position__Reports--btn'
         >
           Denunciar maus - tratos
@@ -34,7 +34,7 @@ export const UserPage = () => {
         <ShelterList />
       </div>
       <Footer />
-      {openModal ? <ReportsForm /> : null}
+      {openModalReports ? <ReportsForm /> : null}
     </>
   );
 };

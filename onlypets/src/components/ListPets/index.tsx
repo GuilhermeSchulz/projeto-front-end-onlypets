@@ -6,34 +6,28 @@ import { HiOutlineDotsCircleHorizontal } from 'react-icons/hi';
 import { useContext, useState } from 'react';
 import { Context } from '../../contexts/user';
 import useOutClick from '../../hooks/useOutClick';
-
 export const ListPets = () => {
   const [option, setOption] = useState(false);
-
   const openOptions = () => {
     !option ? setOption(true) : setOption(false);
   };
-
-  const { showModalListPets, setShowModalListPets } = useContext(Context);
-
+  const { handleModalPetsShelter } = useContext(Context);
   const refModal = useOutClick(() => {
-    setShowModalListPets(false);
+    handleModalPetsShelter();
   });
-
   const refDiv = useOutClick(() => {
     setOption(false);
   });
-
   return (
     <ListPetsModal>
-      <section ref={refModal}>
+      <div className='div_containerModal' ref={refModal}>
         <h3 className='form__title'>
           Aqui estão os animaizinhos que você cadastrou
         </h3>
         <SlClose
           className='icon'
           size={20}
-          onClick={() => setShowModalListPets(!showModalListPets)}
+          onClick={() => handleModalPetsShelter()}
         />
         <ul>
           <li>
@@ -55,7 +49,7 @@ export const ListPets = () => {
             )}
           </li>
         </ul>
-      </section>
+      </div>
     </ListPetsModal>
   );
 };

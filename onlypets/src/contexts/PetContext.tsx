@@ -17,9 +17,9 @@ export interface iPets {
   castrated: string;
   vaccinated: string;
   sex: string;
-  userId: number;
+  userId: string;
   img: string;
-  id: number;
+  id?: number;
 }
 interface iPetsEdit {
   title?: string;
@@ -32,7 +32,7 @@ interface iPetsEdit {
   city?: string;
   castrated?: string;
   vaccinated?: string;
-  userId?: number;
+  userId?: string;
   id?: number;
 }
 interface iPetsProvider {
@@ -44,6 +44,8 @@ interface iPetsProvider {
   editPets: (obj: iPets) => Promise<void>;
   deletePets: (petId: number) => Promise<void>;
   specificPet: (petId: number) => Promise<void>;
+  onlyPet: iPets | null | undefined;
+  setOnlyPet: React.Dispatch<React.SetStateAction<iPets | null | undefined>>;
 }
 
 export const PetContext = createContext({} as iPetsProvider);
@@ -51,6 +53,7 @@ export const PetContext = createContext({} as iPetsProvider);
 export const PetProvider = ({ children }: iProviderProps) => {
   const [pets, setPets] = useState<iPets[] | null>(null);
   const [filterPets, setFilterPets] = useState<iPets[] | null | undefined>(null);
+  const [onlyPet, setOnlyPet] = useState<iPets | null | undefined>(null);
   const token = localStorage.getItem('@TOKEN: ONLYPETS');
 
   const sucessPost = () => {
@@ -158,7 +161,7 @@ export const PetProvider = ({ children }: iProviderProps) => {
     try {
       instance.defaults.headers.authorization = `Bearer ${token}`;
       const { data } = await instance.get(`pets/${petId}`);
-      setFilterPets(data);
+      setOnlyPet(data);
       // console.log(filterPets);
     } catch (error) {
       console.log(error);
@@ -189,6 +192,8 @@ export const PetProvider = ({ children }: iProviderProps) => {
           pets,
           filterPets,
           setFilterPets,
+          onlyPet,
+          setOnlyPet
         }}
       >
         {children}

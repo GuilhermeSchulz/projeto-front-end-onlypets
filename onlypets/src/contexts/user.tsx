@@ -8,7 +8,7 @@ import {
 } from 'react';
 import { toast } from 'react-toastify';
 import { instance } from '../services/instance';
-
+import { useNavigate } from 'react-router-dom';
 interface iUserProviderProps {
   children: ReactNode;
 }
@@ -35,6 +35,11 @@ interface iUserProviderContext {
   handleModalAddPet(): void;
   showModalPetsShelter: boolean;
   handleModalPetsShelter(): void;
+  showModalListPets: boolean;
+  setShowModalListPets: Dispatch<SetStateAction<boolean>>;
+  openModalReports: boolean;
+  setOpenModalReports: Dispatch<SetStateAction<boolean>>;
+  logout(): void;
 }
 
 interface iRegisterUserArgs {
@@ -51,13 +56,14 @@ interface iUserPreferences {
   city: string;
 }
 
-interface iUser {
+export interface iUser {
   id: string;
-  shelter: boolean;
+  shelter: string;
   email: string;
   imgProfile?: string;
   contact?: string;
   preferences?: iUserPreferences;
+  user: string;
 }
 
 interface iLoginArgs {
@@ -76,15 +82,18 @@ export const Context = createContext<iUserProviderContext>(
 
 export const UserProvider = ({ children }: iUserProviderProps) => {
   const [user, setUser] = useState<iUser | null>(null);
-  const [loading, setLoading] = useState(false);
   const [shelters, setShelters] = useState<iUser[] | null>(null);
   const [filteredShelters, setFilteredShelters] = useState<iUser[] | null>(
     null
   );
+  const [openModalReports, setOpenModalReports] = useState(false);
+  const [showModalListPets, setShowModalListPets] = useState(false);
   const [showModalLogin, setShowModalLogin] = useState(false);
   const [showModalRegister, setShowModalRegister] = useState(false);
   const [showModalAddPet, setShowModalAddPet] = useState(false);
   const [showModalPetsShelter, setShowModalPetsShelter] = useState(false);
+  console.log(user);
+  const navigate = useNavigate();
 
   function handleModalLogin() {
     setShowModalLogin(!showModalLogin);
@@ -105,7 +114,6 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
 
   async function registerUser(body: iRegisterUserArgs): Promise<iUser | void> {
     try {
-      setLoading(true);
       const { data } = await instance.post<iUser>('register', body);
       toast.success('Usuário criado com sucesso!', {
         position: 'bottom-right',
@@ -129,7 +137,6 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
         progress: undefined,
       });
     } finally {
-      setLoading(false);
       setShowModalRegister(false);
       setShowModalLogin(true);
     }
@@ -137,7 +144,6 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
 
   async function login(body: iLoginArgs): Promise<iUser | void> {
     try {
-      setLoading(true);
       const { data } = await instance.post<iUserResponse>('login', body);
       setUser(data.user);
       localStorage.setItem('@TOKEN: ONLYPETS', data.accessToken);
@@ -151,7 +157,9 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
         draggable: true,
         progress: undefined,
       });
-      //redirecionamento
+      data.user.shelter === "true"
+        ? navigate(`/dashboard/${data.user.id}`)
+        : navigate(`/home/${data.user.id}`);
       //setar estado de mostrar modal de completar o cadastro
     } catch (error) {
       console.error(error);
@@ -165,21 +173,20 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
         progress: undefined,
       });
     } finally {
-      setLoading(false);
       setShowModalLogin(false);
     }
   }
 
   useEffect(() => {
     const token = localStorage.getItem('@TOKEN: ONLYPETS');
-
     async function getShelters(): Promise<void> {
       if (token !== null) {
         try {
           instance.defaults.headers.authorization = `Bearer ${token}`;
           const { data } = await instance.get<iUser[]>('users');
-          const shelters = data.filter((elem) => elem.shelter === true);
-          setShelters(shelters);
+
+
+          setShelters(data);
         } catch (error) {
           console.error(error);
         }
@@ -187,8 +194,12 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
     }
 
     getShelters();
-  }, [shelters]);
-
+  }, []);
+  const logout = () => {
+    localStorage.clear();
+    setUser(null)
+    navigate('/');
+  };
   return (
     <Context.Provider
       value={{
@@ -209,6 +220,11 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
         handleModalAddPet,
         showModalPetsShelter,
         handleModalPetsShelter,
+        showModalListPets,
+        setShowModalListPets,
+        openModalReports,
+        setOpenModalReports,
+        logout
       }}
     >
       {children}
