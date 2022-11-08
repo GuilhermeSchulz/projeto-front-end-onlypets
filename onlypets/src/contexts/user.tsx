@@ -31,15 +31,10 @@ interface iUserProviderContext {
   showModalRegister: boolean;
   setShowModalRegister: Dispatch<SetStateAction<boolean>>;
   handleModalRegister(): void;
-<<<<<<< HEAD
-  openModal: boolean;
-  setOpenModal: Dispatch<SetStateAction<boolean>>;
-=======
   showModalAddPet: boolean;
   handleModalAddPet(): void;
   showModalPetsShelter: boolean;
   handleModalPetsShelter(): void;
->>>>>>> feat/PageShelter
 }
 
 interface iRegisterUserArgs {
@@ -88,12 +83,8 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
   );
   const [showModalLogin, setShowModalLogin] = useState(false);
   const [showModalRegister, setShowModalRegister] = useState(false);
-<<<<<<< HEAD
-  const [openModal, setOpenModal] = useState(false);
-=======
   const [showModalAddPet, setShowModalAddPet] = useState(false);
   const [showModalPetsShelter, setShowModalPetsShelter] = useState(false);
->>>>>>> feat/PageShelter
 
   function handleModalLogin() {
     setShowModalLogin(!showModalLogin);
@@ -214,15 +205,10 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
         showModalRegister,
         setShowModalRegister,
         handleModalRegister,
-<<<<<<< HEAD
-        openModal,
-        setOpenModal,
-=======
         showModalAddPet,
         handleModalAddPet,
         showModalPetsShelter,
         handleModalPetsShelter,
->>>>>>> feat/PageShelter
       }}
     >
       {children}

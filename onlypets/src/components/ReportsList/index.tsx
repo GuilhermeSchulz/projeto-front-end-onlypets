@@ -9,7 +9,7 @@ export const ReportsList = () => {
   const reports = [
     {
       userId: '1',
-      title: 'Animais passando fome',
+      title: 'animais passando fome',
       description:
         'o dono saiu de viagem e deixou os animais passando fome na casa sozinhos',
       adress: 'Rua dos Anjos, 290',

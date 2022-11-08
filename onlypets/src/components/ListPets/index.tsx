@@ -8,25 +8,33 @@ import { Context } from '../../contexts/user';
 import useOutClick from '../../hooks/useOutClick';
 
 export const ListPets = () => {
-  const { handleModalPetsShelter } = useContext(Context);
-
   const [option, setOption] = useState(false);
-
-  const refModal = useOutClick(() => {
-    handleModalPetsShelter();
-  });
 
   const openOptions = () => {
     !option ? setOption(true) : setOption(false);
   };
 
+  const { showModalListPets, setShowModalListPets } = useContext(Context);
+
+  const refModal = useOutClick(() => {
+    setShowModalListPets(false);
+  });
+
+  const refDiv = useOutClick(() => {
+    setOption(false);
+  });
+
   return (
     <ListPetsModal>
-      <div className='div_containerModal' ref={refModal}>
+      <section ref={refModal}>
         <h3 className='form__title'>
           Aqui estão os animaizinhos que você cadastrou
         </h3>
-        <SlClose onClick={handleModalPetsShelter} className='icon' size={20} />
+        <SlClose
+          className='icon'
+          size={20}
+          onClick={() => setShowModalListPets(!showModalListPets)}
+        />
         <ul>
           <li>
             <h4>Godofredo</h4>
@@ -37,7 +45,7 @@ export const ListPets = () => {
               className='circleOption'
             />
             {option ? (
-              <div className='option__div'>
+              <div className='option__div' ref={refDiv}>
                 <span>Editar</span>
                 <span>Visulaizar</span>
                 <span>Excluir</span>
@@ -47,7 +55,7 @@ export const ListPets = () => {
             )}
           </li>
         </ul>
-      </div>
+      </section>
     </ListPetsModal>
   );
 };
