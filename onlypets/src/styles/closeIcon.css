@@ -2,6 +2,8 @@
   position: absolute;
   top: 20px;
   right: 20px;
+
+  cursor: pointer;
 }
 
 /*  * import { SlClose } from 'react-icons/sl'; 
