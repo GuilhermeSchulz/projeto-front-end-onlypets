@@ -13,7 +13,7 @@ function App() {
       <GlobalStyles />
       <UserProvider>
         <PetProvider>
-          {/* <PetPage /> */}
+          <PetPage />
         </PetProvider>
       </UserProvider>
       <ToastContainer />

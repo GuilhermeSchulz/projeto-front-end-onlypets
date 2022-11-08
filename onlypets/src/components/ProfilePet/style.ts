@@ -18,6 +18,7 @@ export const Image = styled.div`
     img{
         width: 100%;
         height: 100%; 
+        border: 10px solid #F6DF51;
     }
 
 `;
