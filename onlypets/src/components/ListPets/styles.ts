@@ -14,7 +14,7 @@ export const ListPetsModal = styled.div`
 
   background-color: var(--black-opacity);
 
-  section {
+  .div_containerModal {
     width: 100%;
     max-width: 750px;
 

@@ -35,10 +35,6 @@ interface iUserProviderContext {
   handleModalAddPet(): void;
   showModalPetsShelter: boolean;
   handleModalPetsShelter(): void;
-
-
-
-  
 }
 
 interface iRegisterUserArgs {
@@ -87,8 +83,8 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
   );
   const [showModalLogin, setShowModalLogin] = useState(false);
   const [showModalRegister, setShowModalRegister] = useState(false);
-  const [showModalAddPet, setShowModalAddPet] = useState(false)
-  const [showModalPetsShelter, setShowModalPetsShelter] = useState(false)
+  const [showModalAddPet, setShowModalAddPet] = useState(false);
+  const [showModalPetsShelter, setShowModalPetsShelter] = useState(false);
 
   function handleModalLogin() {
     setShowModalLogin(!showModalLogin);
@@ -100,11 +96,11 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
   //setar estado de mostrar modal de completar o cadastro
 
   function handleModalAddPet() {
-    setShowModalAddPet(!showModalAddPet)
+    setShowModalAddPet(!showModalAddPet);
   }
 
   function handleModalPetsShelter() {
-    setShowModalPetsShelter(!showModalPetsShelter)
+    setShowModalPetsShelter(!showModalPetsShelter);
   }
 
   async function registerUser(body: iRegisterUserArgs): Promise<iUser | void> {
@@ -212,8 +208,7 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
         showModalAddPet,
         handleModalAddPet,
         showModalPetsShelter,
-        handleModalPetsShelter
-        
+        handleModalPetsShelter,
       }}
     >
       {children}
