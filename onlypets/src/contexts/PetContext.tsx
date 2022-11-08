@@ -37,8 +37,8 @@ interface iPetsEdit {
 }
 interface iPetsProvider {
   pets: iPets[] | null;
-  filterPets: iPets | null;
-  setFilterPets: React.Dispatch<React.SetStateAction<iPets | null>>;
+  filterPets: iPets[] | null | undefined;
+  setFilterPets: React.Dispatch<React.SetStateAction<iPets[] | null | undefined>>;
   getPets: () => Promise<void>;
   postPets: (obj: iPets) => Promise<void>;
   editPets: (obj: iPets) => Promise<void>;
@@ -50,7 +50,7 @@ export const PetContext = createContext({} as iPetsProvider);
 
 export const PetProvider = ({ children }: iProviderProps) => {
   const [pets, setPets] = useState<iPets[] | null>(null);
-  const [filterPets, setFilterPets] = useState<iPets | null>(null);
+  const [filterPets, setFilterPets] = useState<iPets[] | null | undefined>(null);
   const token = localStorage.getItem('@TOKEN: ONLYPETS');
 
   const sucessPost = () => {
@@ -117,6 +117,7 @@ export const PetProvider = ({ children }: iProviderProps) => {
     try {
       const { data } = await instance.get<iPets[]>('pets');
       setPets(data);
+      setFilterPets(data)
       console.log(pets);
     } catch (error) {
       console.log(error);
@@ -168,6 +169,7 @@ export const PetProvider = ({ children }: iProviderProps) => {
       try {
         const { data } = await instance.get<iPets[]>('pets');
         setPets(data);
+        setFilterPets(data)
       } catch (error) {
         console.log(error);
       }
