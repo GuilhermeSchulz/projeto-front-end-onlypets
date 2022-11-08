@@ -23,7 +23,6 @@ export const ReportsList = () => {
         id: 2
       }
     ]
-      console.log(reports)
     return (
         <StyledReportsList>
             {reports ? (
