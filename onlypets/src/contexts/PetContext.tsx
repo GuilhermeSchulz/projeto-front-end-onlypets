@@ -158,7 +158,7 @@ export const PetProvider = ({ children }: iProviderProps) => {
       instance.defaults.headers.authorization = `Bearer ${token}`;
       const { data } = await instance.get(`pets/${petId}`);
       setFilterPets(data);
-      console.log(filterPets);
+      // console.log(filterPets);
     } catch (error) {
       console.log(error);
     }
