@@ -10,6 +10,7 @@ export const ModalLogin = () => {
     <Background onClick={handleModalLogin}>
       <ModalLoginStyled onClick={(event) => event.stopPropagation()}>
         <ModalDiv>
+          <span onClick={handleModalLogin}>X</span>
           <StyledPlayer
             autoplay={true}
             loop={true}

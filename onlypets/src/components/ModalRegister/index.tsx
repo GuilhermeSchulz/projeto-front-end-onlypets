@@ -10,6 +10,7 @@ export const ModalRegister = () => {
     <Background onClick={handleModalRegister}>
       <ModalRegisterStyled onClick={(event) => event.stopPropagation()}>
         <ModalDiv>
+          <span onClick={handleModalRegister}>X</span>
           <StyledPlayer
             autoplay={true}
             loop={true}

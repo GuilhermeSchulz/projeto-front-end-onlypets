@@ -44,15 +44,29 @@ export const ModalDiv = styled.div`
   padding: 30px;
   border-radius: 5px 0 0 5px;
   color: var(--color-primary-2);
+  display: flex;
+  flex-direction: column;
 
   h2 {
     font-size: var(--title-size-1);
     text-align: center;
     margin-top: -30px;
   }
+
   p {
     margin-top: 20px;
     font-size: var(--text-size-2);
+  }
+
+  span {
+    visibility: hidden;
+    color: black;
+    align-self: end;
+    margin-right: -25px;
+    margin-top: -25px;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 20;
   }
 
   @media (max-width: 900px) {
@@ -61,14 +75,18 @@ export const ModalDiv = styled.div`
       top: 0;
       border-right: none;
       border-radius: 5px 5px 0 0;
-      margin-top: 605px;
+      margin-top: 525px;
     }
 
     p {
       margin-bottom: -20px;
     }
+
+    span {
+      visibility: visible;
+    }
   }
 `;
 export const StyledPlayer = styled(Player)`
-transform: scale(1.5);
-`
+  transform: scale(1.5);
+`;
