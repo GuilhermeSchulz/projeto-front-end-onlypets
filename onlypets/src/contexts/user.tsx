@@ -31,6 +31,8 @@ interface iUserProviderContext {
   showModalRegister: boolean;
   setShowModalRegister: Dispatch<SetStateAction<boolean>>;
   handleModalRegister(): void;
+  openModal: boolean;
+  setOpenModal: Dispatch<SetStateAction<boolean>>;
 }
 
 interface iRegisterUserArgs {
@@ -79,6 +81,7 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
   );
   const [showModalLogin, setShowModalLogin] = useState(false);
   const [showModalRegister, setShowModalRegister] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
 
   function handleModalLogin() {
     setShowModalLogin(!showModalLogin);
@@ -191,6 +194,8 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
         showModalRegister,
         setShowModalRegister,
         handleModalRegister,
+        openModal,
+        setOpenModal,
       }}
     >
       {children}

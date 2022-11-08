@@ -6,7 +6,7 @@ import { useContext, useState } from 'react';
 import { Context } from '../../contexts/user';
 
 export const Header = () => {
-  const user = false;
+  const user = true;
   const [open, setOpen] = useState(false);
   const { handleModalLogin, handleModalRegister } = useContext(Context);
 

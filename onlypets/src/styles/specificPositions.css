@@ -1,0 +1,15 @@
+.position__Reports--btn {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+
+  background-color: var(--color-negative);
+
+  width: 121px;
+}
+
+@media (min-width: 960px) {
+  .position__Reports--btn {
+    width: 240px;
+  }
+}

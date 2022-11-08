@@ -1,10 +1,11 @@
 import './App.css';
-import { Homepage } from './pages/homepage';
+//import { Homepage } from './pages/homepage';
 import { GlobalStyles } from './styles';
 import { UserProvider } from './contexts/user';
 import { PetProvider } from './contexts/PetContext';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { UserPage } from './pages/userPage';
 
 function App() {
   return (
@@ -12,7 +13,8 @@ function App() {
       <GlobalStyles />
       <UserProvider>
         <PetProvider>
-          <Homepage />
+          {/* <Homepage /> */}
+          <UserPage />
         </PetProvider>
       </UserProvider>
       <ToastContainer />

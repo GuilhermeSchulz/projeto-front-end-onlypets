@@ -85,6 +85,8 @@ export const ListPetsModal = styled.div`
     right: 10px;
 
     animation: showOption 1s ease;
+
+    z-index: 1;
   }
 
   .option__div::after {

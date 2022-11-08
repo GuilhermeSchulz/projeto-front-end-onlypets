@@ -33,7 +33,9 @@ export const Homepage = () => {
           </div>
         </div>
       </Banner>
-      <PetList />
+      <div>
+        <PetList />
+      </div>
       <Footer />
       {showModalLogin && <ModalLogin />}
       {showModalRegister && <ModalRegister />}
