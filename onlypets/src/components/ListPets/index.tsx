@@ -3,7 +3,9 @@ import '../../styles/text.css';
 import '../../styles/closeIcon.css';
 import { SlClose } from 'react-icons/sl';
 import { HiOutlineDotsCircleHorizontal } from 'react-icons/hi';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { Context } from '../../contexts/user';
+import useOutClick from '../../hooks/useOutClick';
 
 export const ListPets = () => {
   const [option, setOption] = useState(false);
@@ -11,13 +13,28 @@ export const ListPets = () => {
   const openOptions = () => {
     !option ? setOption(true) : setOption(false);
   };
+
+  const { showModalListPets, setShowModalListPets } = useContext(Context);
+
+  const refModal = useOutClick(() => {
+    setShowModalListPets(false);
+  });
+
+  const refDiv = useOutClick(() => {
+    setOption(false);
+  });
+
   return (
     <ListPetsModal>
-      <section>
+      <section ref={refModal}>
         <h3 className='form__title'>
           Aqui estão os animaizinhos que você cadastrou
         </h3>
-        <SlClose className='icon' size={20} />
+        <SlClose
+          className='icon'
+          size={20}
+          onClick={() => setShowModalListPets(!showModalListPets)}
+        />
         <ul>
           <li>
             <h4>Godofredo</h4>
@@ -28,7 +45,7 @@ export const ListPets = () => {
               className='circleOption'
             />
             {option ? (
-              <div className='option__div'>
+              <div className='option__div' ref={refDiv}>
                 <span>Editar</span>
                 <span>Visulaizar</span>
                 <span>Excluir</span>

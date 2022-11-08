@@ -1,5 +1,5 @@
 import { Button } from '../Button/styles';
-import { StyledUl } from '../List/style';
+import { StyledUl, StyledUlTitle } from '../List/style';
 
 const shelters = [
   {
@@ -72,18 +72,21 @@ const shelters = [
 
 export const ShelterList = () => {
   return (
-    <StyledUl>
-      {shelters.map((elem) => {
-        return (
-          <li className='card card-shelter' id={elem.id + ''}>
-            <img src={elem.imgProfile} alt={'foto de perfil: ' + elem.user} />
-            <div>
-              <h3>{elem.user}</h3>
-              <Button className='button__color--yellow'>Acessar</Button>
-            </div>
-          </li>
-        );
-      })}
-    </StyledUl>
+    <>
+      <StyledUlTitle>Conheça os nossos abrigos parceiros!</StyledUlTitle>
+      <StyledUl>
+        {shelters.map((elem, index) => {
+          return (
+            <li key={index} className='card card-shelter' id={elem.id + ''}>
+              <img src={elem.imgProfile} alt={'foto de perfil: ' + elem.user} />
+              <div>
+                <h3>{elem.user}</h3>
+                <Button className='button__color--yellow'>Acessar</Button>
+              </div>
+            </li>
+          );
+        })}
+      </StyledUl>
+    </>
   );
 };

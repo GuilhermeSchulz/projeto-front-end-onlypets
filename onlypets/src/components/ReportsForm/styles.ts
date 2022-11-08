@@ -1,42 +1,69 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const StyledReportsForm = styled.div`
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: var(--black-opacity);
+
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  div {
     align-items: center;
     justify-content: center;
-    background-color: #EE6F84;
-    padding: 32px 32px 16px;
-    width: 300px;
-    border-radius: var(--border-radius-1);
     gap: 39px;
 
-    h1 {
-        font-size: var(--text-size-1);
-    }
+    background-color: #ee6f84;
 
-    span {
-        position: relative;
-        top: -50px;
-        left: 246px;
+    width: 100%;
+    max-width: 320px;
+
+    padding: 40px;
+
+    border-radius: var(--border-radius-1);
+
+    position: fixed;
+
+    animation: showModal 1s ease;
+  }
+
+  h3 {
+    font-size: var(--text-size-1);
+    margin-bottom: 18px;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+
+    label {
+      p {
+        color: var(--color-secondary-1);
         font-size: var(--text-size-3);
-        font-weight: var(--text-weight-3);
-        cursor: pointer;
+        margin-bottom: 8px;
+        margin-top: -4px;
+      }
+    }
+  }
 
-        &:hover {
-            font-weight: var(--text-weight-1);
-        }
+  @keyframes showModal {
+    0% {
+      opacity: 0;
+      top: -10%;
+    }
+    50% {
+      opacity: 0.5;
     }
 
-    form {
-        display: flex;
-        flex-direction: column;
-
-        label{
-            p {
-                color: var(--color-secondary-1);
-                font-size: var(--text-size-3);
-                margin-bottom: 8px;
-                margin-top: -4px;
-            }
-        }
+    100% {
+      opacity: 1;
+      top: 20%;
     }
-`
+  }
+`;

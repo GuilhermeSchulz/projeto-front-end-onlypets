@@ -3,13 +3,14 @@ import { iPets, PetContext } from '../../contexts/PetContext';
 import { useContext } from 'react';
 
 export const PetList = () => {
-  const { pets } = useContext(PetContext);
+  const { filterPets } = useContext(PetContext);
+  
   return (
     <>
       <StyledUlTitle>Conheça o seu amigo!</StyledUlTitle>
       <StyledUl>
-        {pets !== null &&
-          pets.map((elem: iPets) => {
+        {filterPets !== null &&
+          filterPets?.map((elem: iPets) => {
             return (
               <li className='card card-pet' key={elem.id}>
                 <img src={elem.img} alt={'Animal: ' + elem.title} />

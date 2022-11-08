@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const StyledUlTitle = styled.h2`
-  padding: 20px 0;
+  padding: 20px 10px;
   text-align: center;
   font-size: var(--title-size-2);
 `;

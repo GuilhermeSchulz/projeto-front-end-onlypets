@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useRef } from "react";
+import { useEffect, useRef } from 'react';
 
 const useOutClick = (callback: () => void) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -12,10 +12,10 @@ const useOutClick = (callback: () => void) => {
       }
     };
 
-    document.addEventListener("mousedown", outClick);
+    document.addEventListener('mousedown', outClick);
 
     return () => {
-      document.removeEventListener("mousedown", outClick);
+      document.removeEventListener('mousedown', outClick);
     };
   }, []);
 

@@ -3,10 +3,11 @@ import menu from '../../../assets/frame-menu.svg';
 import { ReportsContext } from '../../../contexts/ReportsContext';
 // import { ReportsModal } from '../ReportsModal';
 import { StyledReportItem } from './styles';
+import { HiOutlineDotsCircleHorizontal } from 'react-icons/hi';
 
 export const ReportsItem = ({ report }: any) => {
   const { openModal, deleteReport } = useContext(ReportsContext);
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState<React.SetStateAction<boolean>>(false);
 
   const contentRef: React.MutableRefObject<any> = useRef();
 
@@ -14,10 +15,15 @@ export const ReportsItem = ({ report }: any) => {
     setOpen(!open);
   };
 
+  const handleView = () => {
+    openModal();
+    setOpen(false);
+  };
+
   useEffect(() => {
     const handleOutclick = (evt: any) => {
       const target = evt.target;
-      !contentRef.current.contains(target) && setOpen(false);
+      !contentRef.current?.contains(target) && setOpen(false);
     };
 
     document.addEventListener('mousedown', handleOutclick);
@@ -30,12 +36,17 @@ export const ReportsItem = ({ report }: any) => {
   return (
     <StyledReportItem key={report.id}>
       <p>{report.title}</p>
-      <figure onClick={openMenu}>
+      <HiOutlineDotsCircleHorizontal
+        onClick={openMenu}
+        size={25}
+        className='circle__option'
+      />
+      {/* <figure onClick={openMenu}>
         <img src={menu} alt='' />
-      </figure>
+      </figure> */}
       {open ? (
-        <ul id={report.id} ref={contentRef}>
-          <li onClick={openModal}>Visualizar</li>
+        <ul id={report.id} ref={contentRef} className='option__ul'>
+          <li onClick={() => handleView()}>Visualizar</li>
           <li onClick={() => deleteReport(report.id)}>Excluir</li>
         </ul>
       ) : null}

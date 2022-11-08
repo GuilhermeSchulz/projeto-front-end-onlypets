@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 
 export const ListPetsModal = styled.div`
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
   width: 100vw;
   height: 100vh;
 
@@ -10,7 +14,7 @@ export const ListPetsModal = styled.div`
 
   background-color: var(--black-opacity);
 
-  section {
+  .div_containerModal {
     width: 100%;
     max-width: 750px;
 
@@ -85,6 +89,8 @@ export const ListPetsModal = styled.div`
     right: 10px;
 
     animation: showOption 1s ease;
+
+    z-index: 1;
   }
 
   .option__div::after {
