@@ -9,6 +9,7 @@ import {
 import { toast } from 'react-toastify';
 import { instance } from '../services/instance';
 import { useNavigate } from 'react-router-dom';
+import jwtDecode from 'jwt-decode';
 interface iUserProviderProps {
   children: ReactNode;
 }
@@ -40,6 +41,10 @@ interface iUserProviderContext {
   openModalReports: boolean;
   setOpenModalReports: Dispatch<SetStateAction<boolean>>;
   logout(): void;
+  showModalFirstAccess: boolean;
+  setShowModalFirstAccess: Dispatch<SetStateAction<boolean>>;
+  loading: boolean;
+  setLoading: Dispatch<SetStateAction<boolean>>;
 }
 
 interface iRegisterUserArgs {
@@ -76,6 +81,11 @@ interface iUserResponse {
   accessToken: string;
 }
 
+interface iJWT {
+  email: string;
+  sub: string;
+}
+
 export const Context = createContext<iUserProviderContext>(
   {} as iUserProviderContext
 );
@@ -92,7 +102,9 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
   const [showModalRegister, setShowModalRegister] = useState(false);
   const [showModalAddPet, setShowModalAddPet] = useState(false);
   const [showModalPetsShelter, setShowModalPetsShelter] = useState(false);
-  console.log(user);
+  const [showModalFirstAccess, setShowModalFirstAccess] = useState(false);
+  const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
 
   function handleModalLogin() {
@@ -147,7 +159,7 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
       const { data } = await instance.post<iUserResponse>('login', body);
       setUser(data.user);
       localStorage.setItem('@TOKEN: ONLYPETS', data.accessToken);
-      console.log(data);
+
       toast.success('Login realizado com sucesso!', {
         position: 'bottom-right',
         autoClose: 2000,
@@ -157,7 +169,7 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
         draggable: true,
         progress: undefined,
       });
-      data.user.shelter === "true"
+      data.user.shelter === 'true'
         ? navigate(`/dashboard/${data.user.id}`)
         : navigate(`/home/${data.user.id}`);
       //setar estado de mostrar modal de completar o cadastro
@@ -174,8 +186,16 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
       });
     } finally {
       setShowModalLogin(false);
+      setLoading(true);
     }
   }
+
+  const editFirsAccess = () => {
+    //patch do primeiro login
+  };
+  const editUser = () => {
+    //modal edit user
+  };
 
   useEffect(() => {
     const token = localStorage.getItem('@TOKEN: ONLYPETS');
@@ -184,20 +204,36 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
         try {
           instance.defaults.headers.authorization = `Bearer ${token}`;
           const { data } = await instance.get<iUser[]>('users');
-
-
           setShelters(data);
+          // navigate(`/home/${user?.id}`);
+          //talvez seja necessário remover o :id da pagina do user
         } catch (error) {
           console.error(error);
         }
       }
     }
 
+    async function reloadUser(): Promise<void> {
+      if (token !== null) {
+        const jwt: iJWT = jwtDecode(token);
+        try {
+          const { data } = await instance.get<iUser>(`users/${jwt.sub}`);
+          setUser(data);
+        } catch (error) {
+          console.error(error);
+          localStorage.clear();
+          navigate('/');
+        } finally {
+          setLoading(true);
+        }
+      }
+    }
+    reloadUser();
     getShelters();
   }, []);
   const logout = () => {
     localStorage.clear();
-    setUser(null)
+    setUser(null);
     navigate('/');
   };
   return (
@@ -224,7 +260,11 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
         setShowModalListPets,
         openModalReports,
         setOpenModalReports,
-        logout
+        logout,
+        showModalFirstAccess,
+        setShowModalFirstAccess,
+        loading,
+        setLoading,
       }}
     >
       {children}

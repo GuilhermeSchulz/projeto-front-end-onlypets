@@ -4,15 +4,19 @@ import StrictLogo from '../../assets/strict-logo.svg';
 import { Button } from '../Button/styles';
 import { useContext, useState } from 'react';
 import { Context } from '../../contexts/user';
+import { useNavigate } from 'react-router-dom';
 
 export const Header = () => {
   const [open, setOpen] = useState(false);
-  const { handleModalLogin, handleModalRegister, user, logout } = useContext(Context);
+  const { handleModalLogin, handleModalRegister, user, logout } =
+    useContext(Context);
 
   function handleClick() {
     setOpen(!open);
   }
-  
+
+  const navigate = useNavigate();
+
   return (
     <StyledHeader>
       {user ? (
@@ -26,7 +30,7 @@ export const Header = () => {
           </span>
           {open ? (
             <ul className='header-container__menu' role='menu'>
-              <li>Início</li>
+              <li onClick={() => navigate(`home/${user.id}`)}>Início</li>
               <li>Ver meus anúncios</li>
               <li>Adicionar amigo para adoção</li>
               <li>Editar perfil</li>

@@ -2,6 +2,7 @@ import { useContext } from 'react';
 import ImgBanner from '../assets/img-banner-userPage.svg';
 import { BannerImage } from '../components/Banner/style';
 import { Button } from '../components/Button/styles';
+import { FirstAcess } from '../components/FirstAcess';
 import { Footer } from '../components/Footer';
 import { Header } from '../components/Header';
 import { PetList } from '../components/PetList';
@@ -11,7 +12,13 @@ import { Context } from '../contexts/user';
 import '../styles/specificPositions.css';
 
 export const UserPage = () => {
-  const { openModalReports, setOpenModalReports } = useContext(Context);
+  const {
+    openModalReports,
+    setOpenModalReports,
+    user,
+    showModalFirstAccess,
+    setShowModalFirstAccess,
+  } = useContext(Context);
 
   return (
     <>
@@ -35,6 +42,10 @@ export const UserPage = () => {
       </div>
       <Footer />
       {openModalReports ? <ReportsForm /> : null}
+      {user?.contact
+        ? setShowModalFirstAccess(true)
+        : setShowModalFirstAccess(false)}
+      {showModalFirstAccess && <FirstAcess />}
     </>
   );
 };
