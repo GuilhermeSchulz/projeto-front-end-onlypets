@@ -1,0 +1,23 @@
+.form__title {
+  color: var(--grey-0);
+
+  font-size: var(--text-size-1);
+  font-weight: var(--text-weight-2);
+}
+
+.form__label {
+  color: var(--grey-0);
+
+  font-weight: var(--text-weight-3);
+  font-size: var(--text-size-3);
+}
+
+.form__label--error {
+  color: var(--color-negative);
+}
+
+.title__name {
+  font-size: var(--text-size-2);
+  font-weight: var(--text-weight-2);
+  color: var(--grey-0);
+}
