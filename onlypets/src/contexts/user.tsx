@@ -182,9 +182,10 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
         draggable: true,
         progress: undefined,
       });
-      data.user.hasOwnProperty('adress') === false
-        ? setShowModalFirstAccess(true)
-        : setShowModalFirstAccess(false);
+      console.log(data.user);
+      data.user.hasOwnProperty('image')
+        ? setShowModalFirstAccess(false)
+        : setShowModalFirstAccess(true);
       data.user.shelter === 'true'
         ? navigate(`/dashboard/`)
         : navigate(`/home/`);
