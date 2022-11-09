@@ -73,7 +73,7 @@ export interface iUser {
   id: string;
   shelter: string;
   email: string;
-  imgProfile?: string;
+  image?: string;
   contact?: string;
   preferences?: iUserPreferences;
   user: string;

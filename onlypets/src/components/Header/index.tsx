@@ -32,8 +32,8 @@ export const Header = () => {
           <img src={StrictLogo} alt='Logo OnlyPets' />
           <span onClick={handleClick} className='header-container__profile'>
             {`${user.user}`}
-            {user.imgProfile != null && (
-              <img src={user.imgProfile} alt='Foto de Perfil' />
+            {user.image != null && (
+              <img src={user.image} alt='Foto de Perfil' />
             )}
           </span>
           {open ? (
