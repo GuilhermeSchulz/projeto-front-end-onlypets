@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Header } from '../components/Header';
 import { BannerImage } from '../components/Banner/style';
 import BannerImg from '../assets/shelter-dashboard.svg';
@@ -6,17 +7,28 @@ import { PetList } from '../components/PetList';
 import { ReportsList } from '../components/ReportsList';
 import { ShelterDiv } from '../components/ShelterDescription/style';
 import { ReportsModal } from '../components/ReportsList/ReportsModal/';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { ReportsContext } from '../contexts/ReportsContext';
 import { ListPets } from '../components/ListPets';
 import { AddPets } from '../components/AddPets';
 import { FirstAcess } from '../components/FirstAcess';
 import { Context } from '../contexts/user';
+import { PetContext } from '../contexts/PetContext';
 
 export const Dashboard = () => {
   const { isModalOpen, reports } = useContext(ReportsContext);
-  const { showModalListPets, showModalAddPet, showModalFirstAccess } =
+  const { showModalListPets, showModalAddPet, showModalFirstAccess, user } =
     useContext(Context);
+    const {setFilterPets, pets} = useContext(PetContext)
+
+    useEffect(() => {
+      const getShelterPets = () =>{
+        const filter = pets?.filter((elem) => elem.userId === user?.id?.toString());
+        setFilterPets(filter);
+      }
+      getShelterPets() 
+    },[user])
+
   return (
     <div>
       <Header />

@@ -44,6 +44,7 @@ interface iPetsProvider {
   handlePets(): void;
   editPet: boolean;
   setEditPet: React.Dispatch<React.SetStateAction<boolean>>;
+  reloadPets: () => void
 }
 
 export const PetContext = createContext({} as iPetsProvider);
@@ -189,7 +190,9 @@ export const PetProvider = ({ children }: iProviderProps) => {
     };
     loadPets();
   }, []);
-
+  const reloadPets = () => {
+    setFilterPets(pets)
+  }
   return (
     <>
       <PetContext.Provider
@@ -209,6 +212,7 @@ export const PetProvider = ({ children }: iProviderProps) => {
           setEditPet,
           editPetValue,
           setEditPetValue,
+          reloadPets
         }}
       >
         {children}

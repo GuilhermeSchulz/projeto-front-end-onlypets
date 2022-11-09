@@ -280,6 +280,7 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
         }
       }
     }
+
     reloadUser();
     getShelters();
   }, []);
