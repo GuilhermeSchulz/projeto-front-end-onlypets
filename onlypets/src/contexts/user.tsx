@@ -77,6 +77,7 @@ export interface iUser {
   contact?: string;
   preferences?: iUserPreferences;
   user: string;
+  title?: string;
 }
 
 interface iLoginArgs {
