@@ -2,8 +2,10 @@ import { StyledUl, StyledUlTitle } from '../List/style';
 import { iPets, PetContext } from '../../contexts/PetContext';
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Context } from '../../contexts/user';
 
 export const PetList = () => {
+  const { handleModalLogin } = useContext(Context);
   const { filterPets } = useContext(PetContext);
   const navigate = useNavigate();
   return (
@@ -16,7 +18,13 @@ export const PetList = () => {
               <li
                 className='card card-pet'
                 onClick={() => {
-                  navigate(`/pets/${elem.id}`);
+                  const token = window.localStorage.getItem("@TOKEN: ONLYPETS");
+                  if(token){
+                    navigate(`/pets/${elem.id}`);
+                  }else{
+                    handleModalLogin()
+                  }
+                  
                 }}
                 key={elem.id}
               >
