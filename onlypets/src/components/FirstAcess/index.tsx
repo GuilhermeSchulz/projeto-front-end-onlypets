@@ -12,7 +12,7 @@ import { SlClose } from 'react-icons/sl';
 
 export interface iFirstAcess {
   address: string;
-  image: string;
+  imgProfile: string;
   contact: string;
   type: string;
   temperament: string;
@@ -24,7 +24,7 @@ export interface iFirstAcess {
 export const FirstAcess = () => {
   const schema = yup.object({
     address: yup.string().required('Campo obrigatório!'),
-    image: yup.string().required('Campo obrigatório!'),
+    imgProfile: yup.string().required('Campo obrigatório!'),
     contact: yup.string().required('Campo obrigatório!'),
     type: yup
       .string()
@@ -46,7 +46,7 @@ export const FirstAcess = () => {
   } = useForm<iFirstAcess>({
     resolver: yupResolver(schema),
   });
-  const { editFirsAccess, editProfile } = useContext(Context);
+  const { editFirsAccess, editProfile, user } = useContext(Context);
   const onSubmit = (data: iFirstAcess) => {
     console.log(data);
     editFirsAccess(data);
@@ -70,6 +70,7 @@ export const FirstAcess = () => {
               className='inputsPattern'
               type='text'
               id='address'
+              value={user ? user.address : undefined}
               placeholder='Digite seu endereço'
               {...register('address')}
             />
@@ -84,11 +85,12 @@ export const FirstAcess = () => {
               className='inputsPattern'
               type='text'
               id='image'
+              value={user ? user.imgProfile : undefined}
               placeholder='URL da sua foto de perfil'
-              {...register('image')}
+              {...register('imgProfile')}
             />
             <p className='form__label form__label--error'>
-              {errors.image?.message}
+              {errors.imgProfile?.message}
             </p>
           </div>
 
@@ -100,6 +102,7 @@ export const FirstAcess = () => {
               className='inputsPattern'
               type='text'
               id='contact'
+              value={user ? user.contact : undefined}
               placeholder='Melhor forma de entrar em contato!'
               {...register('contact')}
             />
@@ -112,6 +115,7 @@ export const FirstAcess = () => {
             </label>
             <select
               className='inputsPattern form__select'
+              value={user ? user.type : undefined}
               id='type'
               {...register('type')}
             >
@@ -134,6 +138,7 @@ export const FirstAcess = () => {
             <select
               className='inputsPattern form__select'
               id='temperament'
+              value={user ? user.temperament : undefined}
               {...register('temperament')}
             >
               <option value='Se da bem com outros pets'>
@@ -157,6 +162,7 @@ export const FirstAcess = () => {
             <select
               className='inputsPattern form__select'
               id='size'
+              value={user ? user.size : undefined}
               {...register('size')}
             >
               <option value='Pequeno'>Pequeno</option>
@@ -175,6 +181,7 @@ export const FirstAcess = () => {
             <select
               className='inputsPattern form__select'
               id='age'
+              value={user ? user.age : undefined}
               {...register('age')}
             >
               <option value='Filhote'>Filhote - até 1 ano</option>
@@ -193,6 +200,7 @@ export const FirstAcess = () => {
               className='inputsPattern'
               type='text'
               id='city'
+              value={user ? user.city : undefined}
               placeholder='Digite o nome da cidade'
               {...register('city')}
             />
