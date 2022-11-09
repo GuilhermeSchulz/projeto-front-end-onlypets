@@ -56,7 +56,7 @@ export const ReportsProvider = ({ children }: iReportsProviderProps) => {
   const [reports, setReports] = useState([] as iReports[] | null);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isModalOpen, setIsModalOpen] = useState(false);
-console.log(reports)
+  console.log(reports);
   const openModal = (): void => {
     setIsModalOpen(!isModalOpen);
   };
@@ -110,7 +110,7 @@ console.log(reports)
         try {
           instance.defaults.headers.authorization = `Bearer ${token}`;
           const { data } = await instance.get<iReports[]>('reports');
-          console.log(data)
+          console.log(data);
           setReports(data);
         } catch (error) {
           console.error(error);

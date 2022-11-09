@@ -47,11 +47,11 @@ interface iUserProviderContext {
   logout(): void;
   showModalFirstAccess: boolean;
   setShowModalFirstAccess: Dispatch<SetStateAction<boolean>>;
-  setShowModalAddPet:Dispatch<SetStateAction<boolean>>;
+  setShowModalAddPet: Dispatch<SetStateAction<boolean>>;
   loading: boolean;
   setLoading: Dispatch<SetStateAction<boolean>>;
-  editFirsAccess:(body:iFirstAcess) => Promise<void>;
-  handeModalListPets(): void; 
+  editFirsAccess: (body: iFirstAcess) => Promise<void>;
+  handeModalListPets(): void;
   editProfile(): void;
 }
 
@@ -112,7 +112,7 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
   const [showModalPetsShelter, setShowModalPetsShelter] = useState(false);
   const [showModalFirstAccess, setShowModalFirstAccess] = useState(false);
   const [loading, setLoading] = useState(false);
-  const {getPets} = useContext(PetContext)
+  const { getPets } = useContext(PetContext);
   const navigate = useNavigate();
 
   function handleModalLogin() {
@@ -125,14 +125,13 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
   //setar estado de mostrar modal de completar o cadastro
 
   function handleModalAddPet() {
-    
     setShowModalAddPet(!showModalAddPet);
-    if(showModalAddPet === false){
-      getPets()
+    if (showModalAddPet === false) {
+      getPets();
     }
   }
   function handeModalListPets() {
-        setShowModalListPets(!showModalListPets)
+    setShowModalListPets(!showModalListPets);
   }
   function handleModalPetsShelter() {
     setShowModalPetsShelter(!showModalPetsShelter);
@@ -173,7 +172,7 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
       const { data } = await instance.post<iUserResponse>('login', body);
       setUser(data.user);
       localStorage.setItem('@TOKEN: ONLYPETS', data.accessToken);
-      localStorage.setItem('@ID: ONLYPETS', data.user.id)
+      localStorage.setItem('@ID: ONLYPETS', data.user.id);
       toast.success('Login realizado com sucesso!', {
         position: 'bottom-right',
         autoClose: 2000,
@@ -184,12 +183,12 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
         progress: undefined,
       });
       data.user.hasOwnProperty('adress') === false
-      ? setShowModalFirstAccess(true)
-      : setShowModalFirstAccess(false)
+        ? setShowModalFirstAccess(true)
+        : setShowModalFirstAccess(false);
       data.user.shelter === 'true'
         ? navigate(`/dashboard/`)
-        : navigate(`/home/`)
-      
+        : navigate(`/home/`);
+
       //setar estado de mostrar modal de completar o cadastro
     } catch (error) {
       console.error(error);
@@ -207,18 +206,21 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
       setLoading(true);
     }
   }
-  const editProfile = () =>{
-    setShowModalFirstAccess(!showModalFirstAccess)
-  }
+  const editProfile = () => {
+    setShowModalFirstAccess(!showModalFirstAccess);
+  };
 
   const editFirsAccess = async (body: iFirstAcess) => {
     const token = localStorage.getItem('@TOKEN: ONLYPETS');
     try {
       instance.defaults.headers.authorization = `Bearer ${token}`;
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { data } = await instance.patch<iUserResponse>(`users/${user?.id}`, body);
+      const { data } = await instance.patch<iUserResponse>(
+        `users/${user?.id}`,
+        body
+      );
       // setUser(data.user);
-      setShowModalFirstAccess(false)
+      setShowModalFirstAccess(false);
 
       toast.success('Perfil completo com sucesso!', {
         position: 'bottom-right',
@@ -229,7 +231,6 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
         draggable: true,
         progress: undefined,
       });
-
     } catch (error) {
       console.error(error);
       toast.error('Falha ao completar perfil!', {
@@ -242,14 +243,12 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
         progress: undefined,
       });
     } finally {
-      
     }
   };
 
-
   useEffect(() => {
     const token = localStorage.getItem('@TOKEN: ONLYPETS');
-    const id = localStorage.getItem('@ID: ONLYPETS')
+    const id = localStorage.getItem('@ID: ONLYPETS');
     async function getShelters(): Promise<void> {
       if (token !== null) {
         try {
@@ -269,9 +268,9 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
           instance.defaults.headers.authorization = `Bearer ${token}`;
           const { data } = await instance.get<iUser>(`users/${id}`);
           setUser(data);
-            data.shelter === 'true'
-          ? navigate(`/dashboard/`)
-          : navigate(`/home/`)
+          data.shelter === 'true'
+            ? navigate(`/dashboard/`)
+            : navigate(`/home/`);
         } catch (error) {
           console.error(error);
           localStorage.clear();
@@ -323,7 +322,7 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
         editFirsAccess,
         setShowModalAddPet,
         handeModalListPets,
-        editProfile
+        editProfile,
       }}
     >
       {children}

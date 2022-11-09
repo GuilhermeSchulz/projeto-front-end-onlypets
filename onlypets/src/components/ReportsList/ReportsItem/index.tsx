@@ -1,7 +1,5 @@
 import { useContext, useEffect, useRef, useState } from 'react';
-import menu from '../../../assets/frame-menu.svg';
 import { ReportsContext } from '../../../contexts/ReportsContext';
-// import { ReportsModal } from '../ReportsModal';
 import { StyledReportItem } from './styles';
 import { HiOutlineDotsCircleHorizontal } from 'react-icons/hi';
 
@@ -41,9 +39,6 @@ export const ReportsItem = ({ report }: any) => {
         size={25}
         className='circle__option'
       />
-      {/* <figure onClick={openMenu}>
-        <img src={menu} alt='' />
-      </figure> */}
       {open ? (
         <ul id={report.id} ref={contentRef} className='option__ul'>
           <li onClick={() => handleView()}>Visualizar</li>

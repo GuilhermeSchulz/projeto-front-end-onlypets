@@ -14,10 +14,6 @@ export const StyledUl = styled.ul`
   gap: 20px;
   overflow-x: auto;
   padding: 50px 0 100px 0;
-  /* 
-  ::-webkit-scrollbar {
-    display: none;
-  } */
 
   .card {
     height: 350px;

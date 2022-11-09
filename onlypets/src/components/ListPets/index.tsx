@@ -10,18 +10,23 @@ import { PetContext } from '../../contexts/PetContext';
 import { useNavigate } from 'react-router-dom';
 
 export const ListPets = () => {
-
-
   const { handeModalListPets, handleModalAddPet } = useContext(Context);
-  const { filterPets, setFilterPets, pets, setEditPet,setEditPetValue, deletePets } = useContext(PetContext);
+  const {
+    filterPets,
+    setFilterPets,
+    pets,
+    setEditPet,
+    setEditPetValue,
+    deletePets,
+  } = useContext(PetContext);
   const refModal = useOutClick(() => {
     handeModalListPets();
   });
 
   const resetPets = () => {
-    setFilterPets(pets)
-  }
-  const navigate = useNavigate()
+    setFilterPets(pets);
+  };
+  const navigate = useNavigate();
   return (
     <ListPetsModal>
       <div className='div_containerModal' ref={refModal}>
@@ -32,8 +37,8 @@ export const ListPets = () => {
           className='icon'
           size={20}
           onClick={() => {
-            handeModalListPets()
-            resetPets()
+            handeModalListPets();
+            resetPets();
           }}
         />
         <ul>
@@ -43,18 +48,32 @@ export const ListPets = () => {
                 <h4>{elem.title}</h4>
                 <p>{elem.type}</p>
                 <div className='buttons__div'>
-                  <span onClick={() => {
-                    setEditPet(false)
-                    setEditPetValue(elem)
-                    handleModalAddPet()
-                  }}><AiFillEdit/></span>
-                  <span onClick={() => {
-                      navigate(`/pets/${elem.id}`)
-                  }}><AiFillEye/></span>
-                  <span onClick={() => {
-                    deletePets(Number(elem.id))
-                    setFilterPets(filterPets?.filter(pet => pet.id !== elem.id))
-                  }}><AiFillDelete/></span>
+                  <span
+                    onClick={() => {
+                      setEditPet(false);
+                      setEditPetValue(elem);
+                      handleModalAddPet();
+                    }}
+                  >
+                    <AiFillEdit />
+                  </span>
+                  <span
+                    onClick={() => {
+                      navigate(`/pets/${elem.id}`);
+                    }}
+                  >
+                    <AiFillEye />
+                  </span>
+                  <span
+                    onClick={() => {
+                      deletePets(Number(elem.id));
+                      setFilterPets(
+                        filterPets?.filter((pet) => pet.id !== elem.id)
+                      );
+                    }}
+                  >
+                    <AiFillDelete />
+                  </span>
                 </div>
               </li>
             );

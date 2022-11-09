@@ -9,11 +9,9 @@ import { Context } from '../contexts/user';
 import { useContext } from 'react';
 import { ModalRegister } from '../components/ModalRegister';
 
-
 export const Homepage = () => {
   const { showModalLogin, handleModalLogin, showModalRegister } =
     useContext(Context);
-
 
   return (
     <>

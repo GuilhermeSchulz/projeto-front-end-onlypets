@@ -10,29 +10,23 @@ export const FirstAcessModal = styled.div`
   z-index: 1;
   position: fixed;
   top: 0;
+
   form {
     width: 100%;
     max-width: 750px;
-
     margin: 16px;
-
     display: flex;
     flex-direction: column;
     gap: 35px;
-
     background-color: var(--color-secondary-1);
-
     border-radius: var(--border-radius-1);
-
     padding: 40px 20px;
-
     position: relative;
   }
 
   h3 {
     align-self: center;
     text-align: center;
-
     max-width: 430px;
   }
 
@@ -49,19 +43,15 @@ export const FirstAcessModal = styled.div`
     justify-content: space-between;
     gap: 35px;
   }
-
   .column {
     display: flex;
     flex-direction: column;
-
     width: 100%;
   }
 
   select {
     max-width: 350px;
-
     position: relative;
-
     align-self: center;
   }
 
@@ -73,9 +63,7 @@ export const FirstAcessModal = styled.div`
     width: 100%;
     min-width: 280px;
     max-width: 350px;
-
     background-color: var(--color-primary-1);
-
     align-self: center;
 
     &:hover {

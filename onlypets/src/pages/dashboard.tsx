@@ -13,10 +13,10 @@ import { AddPets } from '../components/AddPets';
 import { FirstAcess } from '../components/FirstAcess';
 import { Context } from '../contexts/user';
 
-
 export const Dashboard = () => {
   const { isModalOpen, reports } = useContext(ReportsContext);
-  const {showModalListPets, showModalAddPet, showModalFirstAccess} = useContext(Context)
+  const { showModalListPets, showModalAddPet, showModalFirstAccess } =
+    useContext(Context);
   return (
     <div>
       <Header />
@@ -34,18 +34,16 @@ export const Dashboard = () => {
           dos nossos amiguinhos antes que eles encontrem a felicidade de ter um
           novo lar e uma nova família.
         </p>
-
       </ShelterDiv>
       <PetList />
-      {reports?
-      <>
-      <StyledUlTitle>Denuncias:</StyledUlTitle>
-      <ReportsList />
-      </>:
-      null
-      }
-      {showModalListPets ? <ListPets/> : null}
-      {showModalAddPet ? <AddPets/> : null}
+      {reports ? (
+        <>
+          <StyledUlTitle>Denuncias:</StyledUlTitle>
+          <ReportsList />
+        </>
+      ) : null}
+      {showModalListPets ? <ListPets /> : null}
+      {showModalAddPet ? <AddPets /> : null}
       {showModalFirstAccess ? <FirstAcess /> : null}
       {isModalOpen && <ReportsModal />}
     </div>

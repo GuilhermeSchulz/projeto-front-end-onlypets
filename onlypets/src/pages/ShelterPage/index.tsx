@@ -20,31 +20,32 @@ export const ShelterPage = () => {
 
   const navigate = useNavigate();
   const back = () => {
-    setFilterPets(pets)
-    navigate(-1)}
-    useEffect(() => {
-      const token = localStorage.getItem('@TOKEN: ONLYPETS');
-      const handlePets = () => {
-        const filter = filterPets?.filter((elem) => elem.userId === id);
-        setFilterPets(filter);
-      };
-      async function getShelter(): Promise<void> {
-        if (token !== null) {
-          try {
-            instance.defaults.headers.authorization = `Bearer ${token}`;
-            const { data } = await instance.get<iUser>(`users/${id}`);
-  
-            setShelter(data);
-          } catch (error) {
-            console.error(error);
-          }
+    setFilterPets(pets);
+    navigate(-1);
+  };
+  useEffect(() => {
+    const token = localStorage.getItem('@TOKEN: ONLYPETS');
+    const handlePets = () => {
+      const filter = filterPets?.filter((elem) => elem.userId === id);
+      setFilterPets(filter);
+    };
+    async function getShelter(): Promise<void> {
+      if (token !== null) {
+        try {
+          instance.defaults.headers.authorization = `Bearer ${token}`;
+          const { data } = await instance.get<iUser>(`users/${id}`);
+
+          setShelter(data);
+        } catch (error) {
+          console.error(error);
         }
       }
-      getShelter();
-      handlePets();
-    }, []);
-  
-    console.log(filterPets)
+    }
+    getShelter();
+    handlePets();
+  }, []);
+
+  console.log(filterPets);
   return (
     <>
       <Header />
@@ -70,13 +71,11 @@ export const ShelterPage = () => {
           amiguinhos e também amigos humanos que possam dar o mesmo bem-estar a
           eles em seus lares.
         </p>
-      <Button className='button__color--yellow' onClick={back}>Voltar</Button>
+        <Button className='button__color--yellow' onClick={back}>
+          Voltar
+        </Button>
       </DivStyled>
-      {
-        filterPets && filterPets?.length > 0?
-        (<PetList />):
-        null
-      }
+      {filterPets && filterPets?.length > 0 ? <PetList /> : null}
     </>
   );
 };

@@ -43,8 +43,8 @@ export const UserPage = () => {
         <ShelterList />
       </div>
       <Footer />
-      {showModalListPets ? <ListPets/> : null}
-      {showModalAddPet ? <AddPets/> : null}
+      {showModalListPets ? <ListPets /> : null}
+      {showModalAddPet ? <AddPets /> : null}
       {openModalReports ? <ReportsForm /> : null}
       {showModalFirstAccess ? <FirstAcess /> : null}
     </>

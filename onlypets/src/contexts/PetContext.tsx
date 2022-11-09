@@ -27,7 +27,9 @@ export interface iPets {
 interface iPetsProvider {
   pets: iPets[] | null | undefined;
   filterPets: iPets[] | null | undefined;
-  setFilterPets: React.Dispatch<React.SetStateAction<iPets[] | null | undefined>>;
+  setFilterPets: React.Dispatch<
+    React.SetStateAction<iPets[] | null | undefined>
+  >;
   getPets: () => Promise<void>;
   postPets: (obj: iAddPets) => Promise<void>;
   editPets: (obj: iAddPets) => Promise<void>;
@@ -36,23 +38,28 @@ interface iPetsProvider {
   onlyPet: iPets | null | undefined;
   setOnlyPet: React.Dispatch<React.SetStateAction<iPets | null | undefined>>;
   editPetValue: iPets | null | undefined;
-  setEditPetValue: React.Dispatch<React.SetStateAction<iPets | null | undefined>>;
+  setEditPetValue: React.Dispatch<
+    React.SetStateAction<iPets | null | undefined>
+  >;
   handlePets(): void;
-  editPet:boolean;
-  setEditPet:React.Dispatch<React.SetStateAction<boolean>>;
-
+  editPet: boolean;
+  setEditPet: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const PetContext = createContext({} as iPetsProvider);
 
 export const PetProvider = ({ children }: iProviderProps) => {
-  const [pets, setPets] = useState< iPets[] | null | undefined>(null);
-  const [filterPets, setFilterPets] = useState<iPets[] | null | undefined>(null);
+  const [pets, setPets] = useState<iPets[] | null | undefined>(null);
+  const [filterPets, setFilterPets] = useState<iPets[] | null | undefined>(
+    null
+  );
   const [onlyPet, setOnlyPet] = useState<iPets | null | undefined>(null);
-  const [editPetValue, setEditPetValue] = useState<iPets | null | undefined>(null);
+  const [editPetValue, setEditPetValue] = useState<iPets | null | undefined>(
+    null
+  );
   const [editPet, setEditPet] = useState(false);
   const token = localStorage.getItem('@TOKEN: ONLYPETS');
-  const {user} = useContext(Context)
+  const { user } = useContext(Context);
   const sucessPost = () => {
     toast.success('Animal cadastrado com sucesso!', {
       position: 'top-right',
@@ -117,7 +124,7 @@ export const PetProvider = ({ children }: iProviderProps) => {
     try {
       const { data } = await instance.get<iPets[]>('pets');
       setPets(data);
-      setFilterPets(data)
+      setFilterPets(data);
       console.log(pets);
     } catch (error) {
       console.log(error);
@@ -150,13 +157,11 @@ export const PetProvider = ({ children }: iProviderProps) => {
       instance.defaults.headers.authorization = `Bearer ${token}`;
       await instance.delete(`pets/${petId}`);
       sucessDelete();
-      setFilterPets(filterPets?.filter(pet => pet.id !== petId))
-      setPets(pets?.filter(pet => pet.id !== petId))
+      setFilterPets(filterPets?.filter((pet) => pet.id !== petId));
+      setPets(pets?.filter((pet) => pet.id !== petId));
     } catch (error) {
       console.log(error);
-    }
-    finally{
-      
+    } finally {
     }
   };
   const specificPet = async (petId: number) => {
@@ -169,7 +174,7 @@ export const PetProvider = ({ children }: iProviderProps) => {
     }
   };
   const handlePets = () => {
-    const filter = pets?.filter((elem) => elem.userId === (user?.id)?.toString());
+    const filter = pets?.filter((elem) => elem.userId === user?.id?.toString());
     setFilterPets(filter);
   };
   useEffect(() => {
@@ -177,7 +182,7 @@ export const PetProvider = ({ children }: iProviderProps) => {
       try {
         const { data } = await instance.get<iPets[]>('pets');
         setPets(data);
-        setFilterPets(data)
+        setFilterPets(data);
       } catch (error) {
         console.log(error);
       }
@@ -203,7 +208,7 @@ export const PetProvider = ({ children }: iProviderProps) => {
           editPet,
           setEditPet,
           editPetValue,
-          setEditPetValue
+          setEditPetValue,
         }}
       >
         {children}

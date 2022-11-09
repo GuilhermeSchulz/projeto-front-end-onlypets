@@ -1,12 +1,12 @@
-import { useContext } from 'react'
-import { ReportsContext } from '../../contexts/ReportsContext'
+import { useContext } from 'react';
+import { ReportsContext } from '../../contexts/ReportsContext';
 import { iReports } from '../../contexts/ReportsContext';
 import { ReportsItem } from './ReportsItem';
 import { StyledReportsList } from './styles';
 
 export const ReportsList = () => {
-  const { reports } = useContext(ReportsContext)
-  
+  const { reports } = useContext(ReportsContext);
+
   return (
     <StyledReportsList>
       {reports ? (
