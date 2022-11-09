@@ -27,8 +27,8 @@ interface iReportsRegister {
   description: string;
 }
 
-interface iReportsResponse {
-  userId: number;
+export interface iReportsResponse {
+  userId: string;
   title: string;
   description: string;
   adress: string;
@@ -41,6 +41,7 @@ export interface iReportsContext {
   isModalOpen: boolean;
   closeModal(): void;
   reports: iReports[] | null;
+  setReports: React.Dispatch<React.SetStateAction<iReports[] | null>>;
   deleteReport(id: number): void;
   editReport(id: number, data: iEditReport): Promise<void>;
 }
@@ -91,7 +92,7 @@ export const ReportsProvider = ({ children }: iReportsProviderProps) => {
       const body = { ...user, ...data };
 
       const dataTreated = {
-        userId: body.id,
+        userId: body.id + '',
         title: body.title,
         description: body.description,
         adress: body.adress,
@@ -122,7 +123,7 @@ export const ReportsProvider = ({ children }: iReportsProviderProps) => {
     }
   };
 
-  const deleteReport = async (id: number): Promise<void> => {
+  const deleteReport = async (id: string): Promise<void> => {
     try {
       instance.delete<void>(`reports/${id}`);
       toast.success('Denúncia deletada com sucesso!', {
@@ -191,6 +192,7 @@ export const ReportsProvider = ({ children }: iReportsProviderProps) => {
     }
     getReports();
   }, []);
+
   return (
     <ReportsContext.Provider
       value={{
@@ -202,6 +204,7 @@ export const ReportsProvider = ({ children }: iReportsProviderProps) => {
         reports,
         deleteReport,
         editReport,
+        setReports,
       }}
     >
       {children}
