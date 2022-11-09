@@ -9,23 +9,27 @@ import { AddPetsModal } from './styles';
 import { SlClose } from 'react-icons/sl';
 import { useContext } from 'react';
 import { Context } from '../../contexts/user';
+import { PetContext } from '../../contexts/PetContext';
 
-interface iAddPets {
-  name: string;
+
+export interface iAddPets {
+  title: string;
   castrated: string;
   temperament: string;
   size: string;
   age: string;
   vaccinated: string;
   type: string;
-  url: string;
+  img: string;
   content: string;
+  userId?: string;
 }
 
 export const AddPets = () => {
-  const { handleModalAddPet } = useContext(Context)
+  const { handleModalAddPet, user } = useContext(Context)
+  const {postPets, editPet, editPets, editPetValue, setEditPetValue, } = useContext(PetContext)
   const schema = yup.object({
-    name: yup.string().required('Campo obrigatório!'),
+    title: yup.string().required('Campo obrigatório!'),
     castrated: yup
       .string()
       .required('É necessário escolher uma opção!')
@@ -44,7 +48,7 @@ export const AddPets = () => {
       .string()
       .required('É necessário escolher um tipo de animal!')
       .nullable(),
-    url: yup.string().required('Campo obrigatório!'),
+    img: yup.string().required('Campo obrigatório!'),
     content: yup.string().required('Campo obrigatório!'),
   });
 
@@ -57,29 +61,38 @@ export const AddPets = () => {
   });
 
   const onSubmit = (data: iAddPets) => {
-    console.log(data);
+    editPet?
+    postPets({...data, userId: (user?.id)?.toString()}):
+    editPets({...data, userId: (user?.id)?.toString()})
   };
 
   return (
     <AddPetsModal>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <h3 className='form__title'>Adicione um amigo em busca de dono!</h3>
+        {editPet?
+        <h3 className='form__title'>Adicione um amigo em busca de dono!</h3>:
+        <h3 className='form__title'>Edite as informações do seu amigo!</h3>
+        }
 
-        <SlClose onClick={handleModalAddPet} className='icon' size={20} />
+        <SlClose onClick={() =>{
+          handleModalAddPet()
+          setEditPetValue(null)
+          }} className='icon' size={20} />
         <div>
           <div className='column'>
-            <label className='form__label' htmlFor='name'>
+            <label className='form__label' htmlFor='title'>
               Nome:
             </label>
             <input
               className='inputsPattern'
               type='text'
-              id='name'
+              id='title'
+              value={editPetValue? editPetValue.title : undefined}
               placeholder='Digite seu nome'
-              {...register('name')}
+              {...register('title')}
             />
             <p className='form__label form__label--error'>
-              {errors.name?.message}
+              {errors.title?.message}
             </p>
 
             <label className='form__label' htmlFor='castrated'>
@@ -88,6 +101,7 @@ export const AddPets = () => {
             <select
               className='inputsPattern form__select'
               id='castrated'
+              value={editPetValue? editPetValue.castrated : undefined}
               {...register('castrated')}
             >
               <option value='Sim'>Sim</option>
@@ -103,6 +117,7 @@ export const AddPets = () => {
             <select
               className='inputsPattern form__select'
               id='temperament'
+              value={editPetValue? editPetValue.temperament : undefined}
               {...register('temperament')}
             >
               <option value='Se da bem com outros pets'>
@@ -126,6 +141,7 @@ export const AddPets = () => {
             <select
               className='inputsPattern form__select'
               id='size'
+              value={editPetValue? editPetValue.size : undefined}
               {...register('size')}
             >
               <option value='Pequeno'>Pequeno</option>
@@ -144,6 +160,7 @@ export const AddPets = () => {
             <select
               className='inputsPattern form__select'
               id='age'
+              value={editPetValue? editPetValue.age : undefined}
               {...register('age')}
             >
               <option value='Filhote'>Filhote - até 1 ano</option>
@@ -161,6 +178,7 @@ export const AddPets = () => {
             <select
               className='inputsPattern form__select'
               id='vaccinated'
+              value={editPetValue? editPetValue.vaccinated : undefined}
               {...register('vaccinated')}
             >
               <option value='Sim'>Sim</option>
@@ -176,6 +194,7 @@ export const AddPets = () => {
             <select
               className='inputsPattern form__select'
               id='type'
+              value={editPetValue? editPetValue.type : undefined}
               {...register('type')}
             >
               <option value='gato'>Gato</option>
@@ -191,12 +210,13 @@ export const AddPets = () => {
             <input
               className='inputsPattern'
               type='text'
-              id='url'
+              id='img'
+              value={editPetValue? editPetValue.img : undefined}
               placeholder='URL da sua foto de perfil'
-              {...register('url')}
+              {...register('img')}
             />
             <p className='form__label form__label--error'>
-              {errors.url?.message}
+              {errors.img?.message}
             </p>
           </div>
         </div>
@@ -207,6 +227,7 @@ export const AddPets = () => {
           className='inputsPattern inputsPattern--textarea'
           id='content'
           placeholder='Digite informações sobre o pet!'
+          value={editPetValue? editPetValue.content : undefined}
           {...register('content')}
         ></textarea>
         <p className='form__label form__label--error'>

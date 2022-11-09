@@ -1,15 +1,19 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {
   createContext,
   Dispatch,
   ReactNode,
   SetStateAction,
+  useContext,
   useEffect,
   useState,
 } from 'react';
 import { toast } from 'react-toastify';
 import { instance } from '../services/instance';
 import { useNavigate } from 'react-router-dom';
-import jwtDecode from 'jwt-decode';
+// import jwtDecode from 'jwt-decode';
+import { iFirstAcess } from '../components/FirstAcess';
+import { PetContext } from './PetContext';
 interface iUserProviderProps {
   children: ReactNode;
 }
@@ -43,8 +47,12 @@ interface iUserProviderContext {
   logout(): void;
   showModalFirstAccess: boolean;
   setShowModalFirstAccess: Dispatch<SetStateAction<boolean>>;
+  setShowModalAddPet:Dispatch<SetStateAction<boolean>>;
   loading: boolean;
   setLoading: Dispatch<SetStateAction<boolean>>;
+  editFirsAccess:(body:iFirstAcess) => Promise<void>;
+  handeModalListPets(): void; 
+  editProfile(): void;
 }
 
 interface iRegisterUserArgs {
@@ -81,10 +89,10 @@ interface iUserResponse {
   accessToken: string;
 }
 
-interface iJWT {
-  email: string;
-  sub: string;
-}
+// interface iJWT {
+//   email: string;
+//   sub: string;
+// }
 
 export const Context = createContext<iUserProviderContext>(
   {} as iUserProviderContext
@@ -104,7 +112,7 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
   const [showModalPetsShelter, setShowModalPetsShelter] = useState(false);
   const [showModalFirstAccess, setShowModalFirstAccess] = useState(false);
   const [loading, setLoading] = useState(false);
-
+  const {getPets} = useContext(PetContext)
   const navigate = useNavigate();
 
   function handleModalLogin() {
@@ -117,9 +125,15 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
   //setar estado de mostrar modal de completar o cadastro
 
   function handleModalAddPet() {
+    
     setShowModalAddPet(!showModalAddPet);
+    if(showModalAddPet === false){
+      getPets()
+    }
   }
-
+  function handeModalListPets() {
+        setShowModalListPets(!showModalListPets)
+  }
   function handleModalPetsShelter() {
     setShowModalPetsShelter(!showModalPetsShelter);
   }
@@ -159,7 +173,7 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
       const { data } = await instance.post<iUserResponse>('login', body);
       setUser(data.user);
       localStorage.setItem('@TOKEN: ONLYPETS', data.accessToken);
-
+      localStorage.setItem('@ID: ONLYPETS', data.user.id)
       toast.success('Login realizado com sucesso!', {
         position: 'bottom-right',
         autoClose: 2000,
@@ -169,9 +183,13 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
         draggable: true,
         progress: undefined,
       });
+      data.user.hasOwnProperty('adress') === false
+      ? setShowModalFirstAccess(true)
+      : setShowModalFirstAccess(false)
       data.user.shelter === 'true'
-        ? navigate(`/dashboard/${data.user.id}`)
-        : navigate(`/home/${data.user.id}`);
+        ? navigate(`/dashboard/`)
+        : navigate(`/home/`)
+      
       //setar estado de mostrar modal de completar o cadastro
     } catch (error) {
       console.error(error);
@@ -189,16 +207,49 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
       setLoading(true);
     }
   }
+  const editProfile = () =>{
+    setShowModalFirstAccess(!showModalFirstAccess)
+  }
 
-  const editFirsAccess = () => {
-    //patch do primeiro login
+  const editFirsAccess = async (body: iFirstAcess) => {
+    const token = localStorage.getItem('@TOKEN: ONLYPETS');
+    try {
+      instance.defaults.headers.authorization = `Bearer ${token}`;
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { data } = await instance.patch<iUserResponse>(`users/${user?.id}`, body);
+      // setUser(data.user);
+      setShowModalFirstAccess(false)
+
+      toast.success('Perfil completo com sucesso!', {
+        position: 'bottom-right',
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+
+    } catch (error) {
+      console.error(error);
+      toast.error('Falha ao completar perfil!', {
+        position: 'bottom-right',
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    } finally {
+      
+    }
   };
-  const editUser = () => {
-    //modal edit user
-  };
+
 
   useEffect(() => {
     const token = localStorage.getItem('@TOKEN: ONLYPETS');
+    const id = localStorage.getItem('@ID: ONLYPETS')
     async function getShelters(): Promise<void> {
       if (token !== null) {
         try {
@@ -213,12 +264,14 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
 
     async function reloadUser(): Promise<void> {
       if (token !== null) {
-        const jwt: iJWT = jwtDecode(token);
+        // const jwt: iJWT = jwtDecode(token);
         try {
-          const { data } = await instance.get<iUser>(`users/${jwt.sub}`);
+          instance.defaults.headers.authorization = `Bearer ${token}`;
+          const { data } = await instance.get<iUser>(`users/${id}`);
           setUser(data);
-          // navigate(`/home/${user?.id}`);
-          //talvez seja necessário remover o :id da pagina do user
+            data.shelter === 'true'
+          ? navigate(`/dashboard/`)
+          : navigate(`/home/`)
         } catch (error) {
           console.error(error);
           localStorage.clear();
@@ -231,11 +284,13 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
     reloadUser();
     getShelters();
   }, []);
+
   const logout = () => {
     localStorage.clear();
     setUser(null);
     navigate('/');
   };
+
   return (
     <Context.Provider
       value={{
@@ -265,6 +320,10 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
         setShowModalFirstAccess,
         loading,
         setLoading,
+        editFirsAccess,
+        setShowModalAddPet,
+        handeModalListPets,
+        editProfile
       }}
     >
       {children}

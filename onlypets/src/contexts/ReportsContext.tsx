@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useState } from 'react';
+import { createContext, ReactNode, useEffect, useState } from 'react';
 import { instance } from '../services/instance';
 
 interface iReportsProviderProps {
@@ -56,7 +56,7 @@ export const ReportsProvider = ({ children }: iReportsProviderProps) => {
   const [reports, setReports] = useState([] as iReports[] | null);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+console.log(reports)
   const openModal = (): void => {
     setIsModalOpen(!isModalOpen);
   };
@@ -70,7 +70,7 @@ export const ReportsProvider = ({ children }: iReportsProviderProps) => {
 
     try {
       instance.defaults.headers.common.authorization = `Bearer ${token}`;
-      const { data } = await instance.get<iReports[]>('/reports');
+      const { data } = await instance.get<iReports[]>('reports');
       setReports(data);
     } catch (error) {
       console.error(error);
@@ -79,16 +79,16 @@ export const ReportsProvider = ({ children }: iReportsProviderProps) => {
 
   const submitReport = async (data: iReportsRegister): Promise<void> => {
     try {
-      const submit = await instance.post<iReportsResponse>('/reports', data);
+      const submit = await instance.post<iReportsResponse>('reports', data);
       console.log(submit);
     } catch (error) {
       console.error(error);
     }
   };
 
-  const deleteReport = (id: number): void => {
+  const deleteReport = async (id: number): Promise<void> => {
     try {
-      const delReport = instance.delete<void>(`/reports/${id}`);
+      const delReport = instance.delete<void>(`reports/${id}`);
       console.log(delReport);
     } catch (error) {
       console.error(error);
@@ -97,13 +97,28 @@ export const ReportsProvider = ({ children }: iReportsProviderProps) => {
 
   const editReport = async (id: number, data: iEditReport): Promise<void> => {
     try {
-      const edit = await instance.patch<iEditResponse>(`/reports/${id}`, data);
+      const edit = await instance.patch<iEditResponse>(`reports/${id}`, data);
       console.log(edit);
     } catch (error) {
       console.error(error);
     }
   };
-
+  useEffect(() => {
+    const token = localStorage.getItem('@TOKEN: ONLYPETS');
+    async function getReports(): Promise<void> {
+      if (token !== null) {
+        try {
+          instance.defaults.headers.authorization = `Bearer ${token}`;
+          const { data } = await instance.get<iReports[]>('reports');
+          console.log(data)
+          setReports(data);
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    }
+    getReports();
+  }, []);
   return (
     <ReportsContext.Provider
       value={{

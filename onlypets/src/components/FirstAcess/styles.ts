@@ -3,13 +3,13 @@ import styled from 'styled-components';
 export const FirstAcessModal = styled.div`
   width: 100vw;
   height: 100vh;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   background-color: var(--black-opacity);
-
+  z-index: 1;
+  position: fixed;
+  top: 0;
   form {
     width: 100%;
     max-width: 750px;

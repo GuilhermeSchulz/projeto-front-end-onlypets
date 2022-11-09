@@ -63,7 +63,7 @@ export const StyledReportsForm = styled.div`
 
     100% {
       opacity: 1;
-      top: 20%;
+      top: 28%;
     }
   }
 `;

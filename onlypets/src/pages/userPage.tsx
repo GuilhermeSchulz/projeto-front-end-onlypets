@@ -1,10 +1,12 @@
 import { useContext } from 'react';
 import ImgBanner from '../assets/img-banner-userPage.svg';
+import { AddPets } from '../components/AddPets';
 import { BannerImage } from '../components/Banner/style';
 import { Button } from '../components/Button/styles';
 import { FirstAcess } from '../components/FirstAcess';
 import { Footer } from '../components/Footer';
 import { Header } from '../components/Header';
+import { ListPets } from '../components/ListPets';
 import { PetList } from '../components/PetList';
 import { ReportsForm } from '../components/ReportsForm';
 import { ShelterList } from '../components/ShelterList';
@@ -15,9 +17,9 @@ export const UserPage = () => {
   const {
     openModalReports,
     setOpenModalReports,
-    user,
     showModalFirstAccess,
-    setShowModalFirstAccess,
+    showModalAddPet,
+    showModalListPets,
   } = useContext(Context);
 
   return (
@@ -41,11 +43,10 @@ export const UserPage = () => {
         <ShelterList />
       </div>
       <Footer />
+      {showModalListPets ? <ListPets/> : null}
+      {showModalAddPet ? <AddPets/> : null}
       {openModalReports ? <ReportsForm /> : null}
-      {user?.contact
-        ? setShowModalFirstAccess(true)
-        : setShowModalFirstAccess(false)}
-      {showModalFirstAccess && <FirstAcess />}
+      {showModalFirstAccess ? <FirstAcess /> : null}
     </>
   );
 };

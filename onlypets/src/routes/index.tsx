@@ -11,8 +11,8 @@ export const RoutesMain = () => {
     <Routes>
       <Route path='/' element={<Homepage />} />
       <Route element={<ProtectedRoute />}>
-        <Route path='/home/:id' element={<UserPage />} />
-        <Route path='/dashboard/:id' element={<Dashboard />} />
+        <Route path='/home/' element={<UserPage />} />
+        <Route path='/dashboard/' element={<Dashboard />} />
         <Route path='/pets/:id' element={<PetPage />} />
         <Route path='/shelter/:id' element={<ShelterPage />} />
       </Route>

@@ -5,12 +5,14 @@ import { Button } from '../Button/styles';
 import { useContext, useState } from 'react';
 import { Context } from '../../contexts/user';
 import { useNavigate } from 'react-router-dom';
+import { PetContext } from '../../contexts/PetContext';
+
 
 export const Header = () => {
   const [open, setOpen] = useState(false);
-  const { handleModalLogin, handleModalRegister, user, logout } =
+  const { handleModalLogin, handleModalRegister,editProfile, user, logout, handeModalListPets,  handleModalAddPet} =
     useContext(Context);
-
+    const {handlePets, setEditPet} = useContext(PetContext)
   function handleClick() {
     setOpen(!open);
   }
@@ -30,11 +32,31 @@ export const Header = () => {
           </span>
           {open ? (
             <ul className='header-container__menu' role='menu'>
-              <li onClick={() => navigate(`home/${user.id}`)}>Início</li>
-              <li>Ver meus anúncios</li>
-              <li>Adicionar amigo para adoção</li>
-              <li>Editar perfil</li>
-              <li onClick={logout}>Sair</li>
+              <li onClick={() => {
+                user.shelter === "true"?
+                navigate(`/dashboard`):
+                navigate(`/home/`)
+                handleClick()
+                }}>Início</li>
+              <li onClick={() => {
+                handeModalListPets()
+                handleClick()
+                handlePets()
+                }}>Ver meus anúncios</li>
+              <li onClick={() => {
+                setEditPet(true)
+                handleClick()
+                handleModalAddPet()
+              }}>Adicionar amigo para adoção</li>
+              <li onClick={() => {
+                editProfile()
+                handleClick()
+                
+              }}>Editar perfil</li>
+              <li onClick={() =>{
+                logout()
+                handleClick()
+                }}>Sair</li>
             </ul>
           ) : null}
         </div>

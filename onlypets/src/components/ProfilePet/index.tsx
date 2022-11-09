@@ -42,7 +42,7 @@ export const ProfilePet = () => {
                     </div>
                     <div className="tag">
                         <span>{onlyPet?.temperament}</span>
-                        <span>{onlyPet?.sex}</span>
+                      
                     </div>
                     <Button className="button__color--primary">Quero Adotar!</Button>
                     <Button className="button__color--primary" onClick={() => {navigate(-1)}}>Voltar</Button>

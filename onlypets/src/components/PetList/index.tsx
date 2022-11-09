@@ -18,9 +18,9 @@ export const PetList = () => {
                 <div>
                   <h3>{elem.title}</h3>
                   <div className='card-pet__tags'>
-                    <span>{elem.sex}</span>
+                    {/* <span>{elem.sex}</span> */}
                     <span>{elem.temperament}</span>
-                    <span>{'idade: ' + elem.age}</span>
+                    <span>{elem.age}</span>
                   </div>
                 </div>
               </li>

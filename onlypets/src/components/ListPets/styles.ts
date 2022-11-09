@@ -37,6 +37,9 @@ export const ListPetsModal = styled.div`
   h3 {
     text-align: center;
   }
+  h4{
+    width: 33%;
+  }
 
   ul {
     width: 90%;
@@ -52,6 +55,7 @@ export const ListPetsModal = styled.div`
     display: flex;
     flex-direction: column;
     gap: 16px;
+    overflow-x: auto;
   }
 
   li {
@@ -108,11 +112,20 @@ export const ListPetsModal = styled.div`
 
     background-color: var(--color-secondary-1);
   }
-
-  span {
-    border-bottom: 1px solid var(--color-primary-1);
-    text-align: end;
+.buttons__div{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+  span{
+    width: 20px;
+    height: 20px;
+    display: flex;
+  flex-direction: row;
+  align-items: center;
   }
+}
+
 
   @keyframes showOption {
     0% {

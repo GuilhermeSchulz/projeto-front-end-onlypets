@@ -8,14 +8,12 @@ import { ModalLogin } from '../components/ModalLogin';
 import { Context } from '../contexts/user';
 import { useContext } from 'react';
 import { ModalRegister } from '../components/ModalRegister';
-import { PetContext } from '../contexts/PetContext';
+
 
 export const Homepage = () => {
   const { showModalLogin, handleModalLogin, showModalRegister } =
     useContext(Context);
 
-  const {filterPets} = useContext(PetContext)
-  console.log(filterPets)
 
   return (
     <>
