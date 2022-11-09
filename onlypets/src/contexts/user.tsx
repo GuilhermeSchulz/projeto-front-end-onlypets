@@ -205,8 +205,6 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
           instance.defaults.headers.authorization = `Bearer ${token}`;
           const { data } = await instance.get<iUser[]>('users');
           setShelters(data);
-          // navigate(`/home/${user?.id}`);
-          //talvez seja necessário remover o :id da pagina do user
         } catch (error) {
           console.error(error);
         }
@@ -219,6 +217,8 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
         try {
           const { data } = await instance.get<iUser>(`users/${jwt.sub}`);
           setUser(data);
+          // navigate(`/home/${user?.id}`);
+          //talvez seja necessário remover o :id da pagina do user
         } catch (error) {
           console.error(error);
           localStorage.clear();
