@@ -53,6 +53,8 @@ interface iUserProviderContext {
   editFirsAccess: (body: iFirstAcess) => Promise<void>;
   handeModalListPets(): void;
   editProfile(): void;
+  editInfos: boolean;
+  setEditInfos:Dispatch<SetStateAction<boolean>>;
 }
 
 interface iRegisterUserArgs {
@@ -77,6 +79,12 @@ export interface iUser {
   contact?: string;
   preferences?: iUserPreferences;
   user: string;
+  address?: string;
+  temperament?:string;
+  type?:string;
+  size?: string;
+  age?:string;
+  city?:string;
 }
 
 interface iLoginArgs {
@@ -111,6 +119,7 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
   const [showModalAddPet, setShowModalAddPet] = useState(false);
   const [showModalPetsShelter, setShowModalPetsShelter] = useState(false);
   const [showModalFirstAccess, setShowModalFirstAccess] = useState(false);
+  const [editInfos, setEditInfos] = useState(false);
   const [loading, setLoading] = useState(false);
   const { getPets } = useContext(PetContext);
   const navigate = useNavigate();
@@ -323,6 +332,8 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
         setShowModalAddPet,
         handeModalListPets,
         editProfile,
+        editInfos,
+        setEditInfos
       }}
     >
       {children}
