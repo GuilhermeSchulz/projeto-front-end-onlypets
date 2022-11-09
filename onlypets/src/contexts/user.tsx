@@ -76,6 +76,7 @@ export interface iUser {
   shelter: string;
   email: string;
   imgProfile?: string;
+  image?: string;
   contact?: string;
   preferences?: iUserPreferences;
   user: string;
