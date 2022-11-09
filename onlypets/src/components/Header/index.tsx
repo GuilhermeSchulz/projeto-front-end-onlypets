@@ -18,7 +18,7 @@ export const Header = () => {
     handeModalListPets,
     handleModalAddPet,
   } = useContext(Context);
-  const { handlePets, setEditPet } = useContext(PetContext);
+  const { handlePets, setEditPet, reloadPets } = useContext(PetContext);
   function handleClick() {
     setOpen(!open);
   }
@@ -76,6 +76,7 @@ export const Header = () => {
               </li>
               <li
                 onClick={() => {
+                  reloadPets()
                   logout();
                   handleClick();
                 }}

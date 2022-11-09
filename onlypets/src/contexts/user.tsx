@@ -54,7 +54,7 @@ interface iUserProviderContext {
   handeModalListPets(): void;
   editProfile(): void;
   editInfos: boolean;
-  setEditInfos:Dispatch<SetStateAction<boolean>>;
+  setEditInfos: Dispatch<SetStateAction<boolean>>;
 }
 
 interface iRegisterUserArgs {
@@ -80,11 +80,11 @@ export interface iUser {
   preferences?: iUserPreferences;
   user: string;
   address?: string;
-  temperament?:string;
-  type?:string;
+  temperament?: string;
+  type?: string;
   size?: string;
-  age?:string;
-  city?:string;
+  age?: string;
+  city?: string;
 }
 
 interface iLoginArgs {
@@ -289,6 +289,7 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
         }
       }
     }
+
     getShelters();
     reloadUser();
   }, []);
@@ -333,7 +334,7 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
         handeModalListPets,
         editProfile,
         editInfos,
-        setEditInfos
+        setEditInfos,
       }}
     >
       {children}
