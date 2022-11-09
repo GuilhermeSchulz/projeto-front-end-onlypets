@@ -64,6 +64,7 @@ export const AddPets = () => {
     editPet
       ? postPets({ ...data, userId: user?.id?.toString() })
       : editPets({ ...data, userId: user?.id?.toString() });
+      handleModalAddPet();
   };
 
   return (
