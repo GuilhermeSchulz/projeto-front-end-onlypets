@@ -59,7 +59,7 @@ export const PetProvider = ({ children }: iProviderProps) => {
   );
   const [editPet, setEditPet] = useState(false);
   const token = localStorage.getItem('@TOKEN: ONLYPETS');
-  const { user } = useContext(Context);
+  const { user, setShowModalAddPet } = useContext(Context);
   const sucessPost = () => {
     toast.success('Animal cadastrado com sucesso!', {
       position: 'top-right',
@@ -120,6 +120,21 @@ export const PetProvider = ({ children }: iProviderProps) => {
       theme: 'light',
     });
   };
+
+  useEffect(() => {
+    const getPets = async () => {
+      try {
+        const { data } = await instance.get<iPets[]>('pets');
+        setPets(data);
+        setFilterPets(data);
+        console.log(pets);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getPets();
+  }, [pets]);
+
   const getPets = async () => {
     try {
       const { data } = await instance.get<iPets[]>('pets');
@@ -136,6 +151,7 @@ export const PetProvider = ({ children }: iProviderProps) => {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { data } = await instance.post<iAddPets>('pets', obj);
       sucessPost();
+      setShowModalAddPet(false);
     } catch (error) {
       failPost();
       console.log(error);
