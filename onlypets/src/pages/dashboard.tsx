@@ -12,10 +12,11 @@ import { ListPets } from '../components/ListPets';
 import { AddPets } from '../components/AddPets';
 import { FirstAcess } from '../components/FirstAcess';
 import { Context } from '../contexts/user';
+import Loading from '../components/Loading';
 
 export const Dashboard = () => {
   const { isModalOpen, reports } = useContext(ReportsContext);
-  const { showModalListPets, showModalAddPet, showModalFirstAccess } =
+  const { showModalListPets, showModalAddPet, showModalFirstAccess, loading } =
     useContext(Context);
   return (
     <div>
@@ -39,7 +40,8 @@ export const Dashboard = () => {
       {reports ? (
         <>
           <StyledUlTitle>Denuncias:</StyledUlTitle>
-          <ReportsList />
+          {!loading && <Loading />}
+          {reports ? <ReportsList /> : null}
         </>
       ) : null}
       {showModalListPets ? <ListPets /> : null}
