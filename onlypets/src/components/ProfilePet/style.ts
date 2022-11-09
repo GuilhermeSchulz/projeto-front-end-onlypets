@@ -1,57 +1,42 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  display: flex;
-  justify-content: center;
-  margin: 110px auto;
-  width: 65%;
+  width: 90%;
   background: var(--color-secondary-1);
   border-radius: 4px;
-`;
-
-export const Image = styled.div`
-  width: 515px;
-  height: 730px;
-
+  justify-content: center;
+  display: flex;
+  margin: 110px auto;
+  min-width: 300px;
+  flex-direction: column;
+  max-width: 1300px;
   img {
-    width: 100%;
-    height: 100%;
+    margin-top: 1rem;
+    width: 300px;
+    height: 300px;
     object-fit: contain;
-    border: 10px solid #f6df51;
+  }
+  @media(min-width: 1024px){
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+    justify-content: space-around;
+    img{
+      width: 30%;
+      height: 80%;
+      max-width: 300px;
+    }
   }
 `;
-
 export const DataPet = styled.div`
-  width: 636px;
-
-  .header {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  .details {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    margin-top: 100px;
-
-    h1 {
-      color: var(--color-primary-1);
-    }
-
-    p {
-      margin-bottom: 28px;
-    }
-
-    span {
-      margin: 0px 45px 0px 45px;
-    }
-  }
-
-  .details {
-    margin: 35px 45px 0px 45px;
-
-    div {
-      display: flex;
-      align-items: center;
-      gap: 35px;
-    }
-
+    gap: 1rem;
     span {
       padding: 10px;
       margin-top: 35px;
@@ -59,11 +44,8 @@ export const DataPet = styled.div`
       color: var(--white);
       border-radius: 4px;
     }
-
-    Button {
-      margin-top: 45px;
-      width: 100%;
-      border-radius: 2px;
-    }
+  }
+  @media(min-width: 1024px){
+   max-width: 50%;
   }
 `;

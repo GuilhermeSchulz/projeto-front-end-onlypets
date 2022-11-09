@@ -2,7 +2,7 @@
 import { useContext, useEffect } from 'react';
 import { PetContext } from '../../contexts/PetContext';
 import { Button } from '../Button/styles';
-import { Container, DataPet, Image } from './style';
+import { Container, DataPet } from './style';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
@@ -18,7 +18,7 @@ export const ProfilePet = () => {
 
   return (
     <Container>
-      <Image>{<img src={onlyPet?.img} alt='pet' />}</Image>
+      <img src={onlyPet?.img} alt='pet' />
       <DataPet>
         <div className='header'>
           <h1>{onlyPet?.title}</h1>
