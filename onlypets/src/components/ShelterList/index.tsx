@@ -15,7 +15,7 @@ export const ShelterList = () => {
         {filteredShelters?.map((elem, index) => {
           return (
             <li key={index} className='card card-shelter' id={elem.id + ''}>
-              <img src={elem.imgProfile} alt={'foto de perfil: ' + elem.user} />
+              <img src={elem.image} alt={'foto de perfil: ' + elem.user} />
               <div>
                 <h3>{elem.user}</h3>
                 <Button
