@@ -26,10 +26,10 @@ interface iReportsForm {
 
 export const ReportsForm = () => {
   const refModal = useOutClick(() => {
-    setOpenModal(false);
+    setOpenModalReports(false);
   });
 
-  const { setOpenModal } = useContext(Context);
+  const { setOpenModalReports } = useContext(Context);
 
   const { submitReport } = useContext(ReportsContext);
   const {
@@ -40,6 +40,7 @@ export const ReportsForm = () => {
     resolver: yupResolver(schema),
   });
 
+  
   return (
     <StyledReportsForm>
       <div ref={refModal}>
@@ -47,7 +48,7 @@ export const ReportsForm = () => {
         <SlClose
           className='icon'
           size={20}
-          onClick={() => setOpenModal(false)}
+          onClick={() => setOpenModalReports(false)}
         />
         <form onSubmit={handleSubmit(submitReport)}>
           <StyledFieldInput>

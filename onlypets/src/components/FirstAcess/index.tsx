@@ -6,13 +6,15 @@ import { Button } from '../Button/styles';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import { Context } from '../../contexts/user';
+import { useContext } from 'react';
 import { SlClose } from 'react-icons/sl';
 
-interface iFirstAcess {
+export interface iFirstAcess {
   address: string;
   image: string;
   contact: string;
-  whichAnimal: string;
+  type: string;
   temperament: string;
   size: string;
   age: string;
@@ -24,7 +26,7 @@ export const FirstAcess = () => {
     address: yup.string().required('Campo obrigatório!'),
     image: yup.string().required('Campo obrigatório!'),
     contact: yup.string().required('Campo obrigatório!'),
-    whichAnimal: yup
+    type: yup
       .string()
       .required('É necessário escolher um tipo de animal!')
       .nullable(),
@@ -44,9 +46,10 @@ export const FirstAcess = () => {
   } = useForm<iFirstAcess>({
     resolver: yupResolver(schema),
   });
-
+  const {editFirsAccess, editProfile} = useContext(Context)
   const onSubmit = (data: iFirstAcess) => {
-    console.log(data);
+    console.log(data)
+    editFirsAccess(data);
   };
 
   return (
@@ -56,7 +59,7 @@ export const FirstAcess = () => {
           Para completar o perfil precisamos de mais informações
         </h3>
 
-        <SlClose className='icon' size={20} />
+        <SlClose onClick={editProfile} className='icon' size={20} />
 
         <div>
           <div className='column'>
@@ -109,14 +112,14 @@ export const FirstAcess = () => {
             </label>
             <select
               className='inputsPattern form__select'
-              id='whichAnimal'
-              {...register('whichAnimal')}
+              id='type'
+              {...register('type')}
             >
               <option value='gato'>Gato</option>
               <option value='cão'>Cachorro</option>
             </select>
             <p className='form__label form__label--error'>
-              {errors.whichAnimal?.message}
+              {errors.type?.message}
             </p>
           </div>
         </div>

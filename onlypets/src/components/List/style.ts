@@ -14,13 +14,13 @@ export const StyledUl = styled.ul`
   gap: 20px;
   overflow-x: auto;
   padding: 50px 0 100px 0;
-
+/* 
   ::-webkit-scrollbar {
     display: none;
-  }
+  } */
 
   .card {
-    height: 330px;
+    height: 350px;
     width: 275px;
     min-width: 275px;
     display: flex;
@@ -30,6 +30,7 @@ export const StyledUl = styled.ul`
   .card img {
     object-fit: cover;
     height: 75%;
+    min-height: 246px;
     width: 100%;
     border-radius: var(--border-radius-1) var(--border-radius-1) 0 0;
   }
@@ -54,12 +55,17 @@ export const StyledUl = styled.ul`
   .card-pet > div {
     background-color: var(--grey-4);
     color: var(--color-primary-1);
+    height: 105px;
   }
 
   .card-pet__tags {
     display: flex;
     justify-content: space-around;
     width: 90%;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    height: max-content;
+    gap: 1rem;
   }
 
   .card-pet__tags span {

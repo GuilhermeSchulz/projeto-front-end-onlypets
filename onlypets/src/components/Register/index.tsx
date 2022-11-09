@@ -8,14 +8,14 @@ import { Context } from '../../contexts/user';
 import { useContext, useEffect } from 'react';
 
 interface IRegister {
-  name: string;
+  user: string;
   email: string;
   shelter: boolean;
   password: string;
 }
 
 const schema = yup.object({
-  name: yup.string().required('O campo Nome Completo é obrigatório').min(3),
+  user: yup.string().required('O campo Nome Completo é obrigatório').min(3),
   email: yup.string().required('O campo Email é obrigatório'),
   password: yup
     .string()
@@ -54,12 +54,12 @@ export const Register = () => {
         <StyledFieldInput>
           Nome Completo:
           <input
-            id='name'
+            id='user'
             type='text'
             placeholder='Digite o seu nome...'
-            {...register('name')}
+            {...register('user')}
           />
-          <span>{errors.name?.message}</span>
+          <span>{errors.user?.message}</span>
         </StyledFieldInput>
 
         <StyledFieldInput>
@@ -96,7 +96,9 @@ export const Register = () => {
         </StyledFieldInput>
 
         <div className='button'>
-          <Button className='button__color--primary'>Cadastrar</Button>
+          <Button className='button__color--primary' type='submit'>
+            Cadastrar
+          </Button>
           <Button
             className='button__color--grey'
             onClick={() => {

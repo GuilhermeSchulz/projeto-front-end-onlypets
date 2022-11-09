@@ -4,14 +4,20 @@ import StrictLogo from '../../assets/strict-logo.svg';
 import { Button } from '../Button/styles';
 import { useContext, useState } from 'react';
 import { Context } from '../../contexts/user';
+import { useNavigate } from 'react-router-dom';
+import { PetContext } from '../../contexts/PetContext';
+
 
 export const Header = () => {
   const [open, setOpen] = useState(false);
-  const { handleModalLogin, handleModalRegister, user } = useContext(Context);
-
+  const { handleModalLogin, handleModalRegister,editProfile, user, logout, handeModalListPets,  handleModalAddPet} =
+    useContext(Context);
+    const {handlePets, setEditPet} = useContext(PetContext)
   function handleClick() {
     setOpen(!open);
   }
+
+  const navigate = useNavigate();
 
   return (
     <StyledHeader>
@@ -19,18 +25,38 @@ export const Header = () => {
         <div className='header-container with-user'>
           <img src={StrictLogo} alt='Logo OnlyPets' />
           <span onClick={handleClick} className='header-container__profile'>
-            Usuário
+            {`${user.user}`}
             {user.imgProfile != null && (
               <img src={user.imgProfile} alt='Foto de Perfil' />
             )}
           </span>
           {open ? (
             <ul className='header-container__menu' role='menu'>
-              <li>Início</li>
-              <li>Ver meus anúncios</li>
-              <li>Adicionar amigo para adoção</li>
-              <li>Editar perfil</li>
-              <li>Sair</li>
+              <li onClick={() => {
+                user.shelter === "true"?
+                navigate(`/dashboard`):
+                navigate(`/home/`)
+                handleClick()
+                }}>Início</li>
+              <li onClick={() => {
+                handeModalListPets()
+                handleClick()
+                handlePets()
+                }}>Ver meus anúncios</li>
+              <li onClick={() => {
+                setEditPet(true)
+                handleClick()
+                handleModalAddPet()
+              }}>Adicionar amigo para adoção</li>
+              <li onClick={() => {
+                editProfile()
+                handleClick()
+                
+              }}>Editar perfil</li>
+              <li onClick={() =>{
+                logout()
+                handleClick()
+                }}>Sair</li>
             </ul>
           ) : null}
         </div>

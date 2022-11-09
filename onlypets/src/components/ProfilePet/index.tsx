@@ -1,47 +1,51 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect } from "react";
 import { PetContext } from "../../contexts/PetContext";
 import { Button } from "../Button/styles";
 import { Container, DataPet, Image } from "./style";
+import { useParams } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 
 export const ProfilePet = () => {
-    const { specificPet, filterPets } = useContext(PetContext);
-
-  
+    const { specificPet, onlyPet } = useContext(PetContext);
+    const { id } = useParams();
+    const navigate = useNavigate();
     useEffect( () => {
-         specificPet(1);
+         specificPet(Number(id));
     },[]);
 
-  console.log(filterPets)
+  console.log(onlyPet)
 
     return(
         <Container>
             <Image>
-                {<img src={filterPets?.img} alt="pet" />}
+                {<img src={onlyPet?.img} alt="pet" />}
             </Image>
             <DataPet>
                 <div className="header">
-                    <h1>{filterPets?.title}</h1>
-                    <p>{filterPets?.age}</p>
-                    <span>{filterPets?.content}</span>
+                    <h1>{onlyPet?.title}</h1>
+                    <p>{onlyPet?.age}</p>
+                    <span>{onlyPet?.content}</span>
                 </div>
                 <div className="details">
                     <div>
                         <h2>Vacinação:</h2>
-                        <p>{filterPets?.vaccinated? "Sim" : "Pendente"}</p>
+                        <p>{onlyPet?.vaccinated? "Sim" : "Pendente"}</p>
                     </div>
                     <div>
                         <h2>Castração:</h2>
-                        <p>{filterPets?.castrated? "Castrado" : "Não Castrado"}</p>
+                        <p>{onlyPet?.castrated? "Castrado" : "Não Castrado"}</p>
                     </div>
                     <div>
                         <h2>Porte:</h2>
-                        <p>{filterPets?.size}</p>
+                        <p>{onlyPet?.size}</p>
                     </div>
                     <div className="tag">
-                        <span>{filterPets?.temperament}</span>
-                        <span>{filterPets?.sex}</span>
+                        <span>{onlyPet?.temperament}</span>
+                      
                     </div>
                     <Button className="button__color--primary">Quero Adotar!</Button>
+                    <Button className="button__color--primary" onClick={() => {navigate(-1)}}>Voltar</Button>
                 </div>
             </DataPet>
         </Container>

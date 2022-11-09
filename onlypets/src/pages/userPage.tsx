@@ -1,9 +1,12 @@
 import { useContext } from 'react';
 import ImgBanner from '../assets/img-banner-userPage.svg';
+import { AddPets } from '../components/AddPets';
 import { BannerImage } from '../components/Banner/style';
 import { Button } from '../components/Button/styles';
+import { FirstAcess } from '../components/FirstAcess';
 import { Footer } from '../components/Footer';
 import { Header } from '../components/Header';
+import { ListPets } from '../components/ListPets';
 import { PetList } from '../components/PetList';
 import { ReportsForm } from '../components/ReportsForm';
 import { ShelterList } from '../components/ShelterList';
@@ -11,7 +14,13 @@ import { Context } from '../contexts/user';
 import '../styles/specificPositions.css';
 
 export const UserPage = () => {
-  const { openModal, setOpenModal } = useContext(Context);
+  const {
+    openModalReports,
+    setOpenModalReports,
+    showModalFirstAccess,
+    showModalAddPet,
+    showModalListPets,
+  } = useContext(Context);
 
   return (
     <>
@@ -21,7 +30,7 @@ export const UserPage = () => {
           <img src={ImgBanner} alt='Cão e gato onlypets' />
         </div>
         <Button
-          onClick={() => setOpenModal(true)}
+          onClick={() => setOpenModalReports(true)}
           className='position__Reports--btn'
         >
           Denunciar maus - tratos
@@ -34,7 +43,10 @@ export const UserPage = () => {
         <ShelterList />
       </div>
       <Footer />
-      {openModal ? <ReportsForm /> : null}
+      {showModalListPets ? <ListPets/> : null}
+      {showModalAddPet ? <AddPets/> : null}
+      {openModalReports ? <ReportsForm /> : null}
+      {showModalFirstAccess ? <FirstAcess /> : null}
     </>
   );
 };

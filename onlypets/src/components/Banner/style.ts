@@ -76,12 +76,7 @@ export const Banner = styled.div`
 export const BannerImage = styled.div`
   width: 100%;
   height: fit-content;
-
-<<<<<<< HEAD
   position: relative;
-
-=======
->>>>>>> feat/shelterPage
   img {
     width: 100%;
     height: 100%;

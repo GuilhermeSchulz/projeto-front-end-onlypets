@@ -12,6 +12,9 @@ button{
     cursor:pointer;
     transition: 0.5s;
 }
+li{
+  cursor: pointer;
+}
 :root{
     --color-primary-1: #671D76;
     --color-primary-2: #1B051C;

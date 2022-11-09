@@ -2,60 +2,65 @@ import { ListPetsModal } from './styles';
 import '../../styles/text.css';
 import '../../styles/closeIcon.css';
 import { SlClose } from 'react-icons/sl';
-import { HiOutlineDotsCircleHorizontal } from 'react-icons/hi';
-import { useContext, useState } from 'react';
+import { AiFillEdit, AiFillEye, AiFillDelete } from 'react-icons/ai';
+import { useContext } from 'react';
 import { Context } from '../../contexts/user';
 import useOutClick from '../../hooks/useOutClick';
+import { PetContext } from '../../contexts/PetContext';
+import { useNavigate } from 'react-router-dom';
 
 export const ListPets = () => {
-  const [option, setOption] = useState(false);
 
-  const openOptions = () => {
-    !option ? setOption(true) : setOption(false);
-  };
 
-  const { showModalListPets, setShowModalListPets } = useContext(Context);
-
+  const { handeModalListPets, handleModalAddPet } = useContext(Context);
+  const { filterPets, setFilterPets, pets, setEditPet,setEditPetValue, deletePets } = useContext(PetContext);
   const refModal = useOutClick(() => {
-    setShowModalListPets(false);
+    handeModalListPets();
   });
 
-  const refDiv = useOutClick(() => {
-    setOption(false);
-  });
-
+  const resetPets = () => {
+    setFilterPets(pets)
+  }
+  const navigate = useNavigate()
   return (
     <ListPetsModal>
-      <section ref={refModal}>
+      <div className='div_containerModal' ref={refModal}>
         <h3 className='form__title'>
           Aqui estão os animaizinhos que você cadastrou
         </h3>
         <SlClose
           className='icon'
           size={20}
-          onClick={() => setShowModalListPets(!showModalListPets)}
+          onClick={() => {
+            handeModalListPets()
+            resetPets()
+          }}
         />
         <ul>
-          <li>
-            <h4>Godofredo</h4>
-            <p>Cachorro</p>
-            <HiOutlineDotsCircleHorizontal
-              onClick={() => openOptions()}
-              size={25}
-              className='circleOption'
-            />
-            {option ? (
-              <div className='option__div' ref={refDiv}>
-                <span>Editar</span>
-                <span>Visulaizar</span>
-                <span>Excluir</span>
-              </div>
-            ) : (
-              <></>
-            )}
-          </li>
+          {filterPets?.map((elem) => {
+            return (
+              <li key={elem.id}>
+                <h4>{elem.title}</h4>
+                <p>{elem.type}</p>
+                <div className='buttons__div'>
+                  <span onClick={() => {
+                    setEditPet(false)
+                    setEditPetValue(elem)
+                    handleModalAddPet()
+                  }}><AiFillEdit/></span>
+                  <span onClick={() => {
+                      navigate(`/pets/${elem.id}`)
+                  }}><AiFillEye/></span>
+                  <span onClick={() => {
+                    deletePets(Number(elem.id))
+                    setFilterPets(filterPets?.filter(pet => pet.id !== elem.id))
+                  }}><AiFillDelete/></span>
+                </div>
+              </li>
+            );
+          })}
         </ul>
-      </section>
+      </div>
     </ListPetsModal>
   );
 };
