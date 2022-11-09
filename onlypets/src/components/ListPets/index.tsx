@@ -35,7 +35,7 @@ export const ListPets = () => {
             resetPets();
           }}
         />
-        <ul className='ulItems'>
+        <ul className='ul__items'>
           {filterPets?.map((elem: iPets) => (
             <PetsItem key={elem.id} elem={elem} />
           ))}
