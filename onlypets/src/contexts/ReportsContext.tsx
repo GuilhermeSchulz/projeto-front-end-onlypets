@@ -1,5 +1,13 @@
-import { createContext, ReactNode, useEffect, useState } from 'react';
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
+import { toast } from 'react-toastify';
 import { instance } from '../services/instance';
+import { Context } from './user';
 
 interface iReportsProviderProps {
   children: ReactNode;
@@ -44,7 +52,7 @@ interface iEditReport {
 
 interface iEditResponse {
   userId: string;
-  title: string;
+  title: string | null;
   description: string;
   id: number;
 }
@@ -56,7 +64,8 @@ export const ReportsProvider = ({ children }: iReportsProviderProps) => {
   const [reports, setReports] = useState([] as iReports[] | null);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isModalOpen, setIsModalOpen] = useState(false);
-  console.log(reports);
+
+  const { user, setOpenModalReports } = useContext(Context);
   const openModal = (): void => {
     setIsModalOpen(!isModalOpen);
   };
@@ -79,18 +88,62 @@ export const ReportsProvider = ({ children }: iReportsProviderProps) => {
 
   const submitReport = async (data: iReportsRegister): Promise<void> => {
     try {
-      const submit = await instance.post<iReportsResponse>('reports', data);
-      console.log(submit);
+      const body = { ...user, ...data };
+
+      const dataTreated = {
+        userId: body.id,
+        title: body.title,
+        description: body.description,
+        adress: body.adress,
+      };
+
+      await instance.post<iReportsResponse>('reports', dataTreated);
+      toast.success('Denúncia criada com sucesso!', {
+        position: 'bottom-right',
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      setOpenModalReports(false);
     } catch (error) {
+      toast.error('Ops não foi possível cadastrar sua denúncia!', {
+        position: 'bottom-right',
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
       console.error(error);
     }
   };
 
   const deleteReport = async (id: number): Promise<void> => {
     try {
-      const delReport = instance.delete<void>(`reports/${id}`);
-      console.log(delReport);
+      instance.delete<void>(`reports/${id}`);
+      toast.success('Denúncia deletada com sucesso!', {
+        position: 'bottom-right',
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     } catch (error) {
+      toast.error('Ops algo deu errado!', {
+        position: 'bottom-right',
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
       console.error(error);
     }
   };
@@ -99,10 +152,29 @@ export const ReportsProvider = ({ children }: iReportsProviderProps) => {
     try {
       const edit = await instance.patch<iEditResponse>(`reports/${id}`, data);
       console.log(edit);
+      toast.success('Denúncia editada com sucesso!', {
+        position: 'bottom-right',
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     } catch (error) {
+      toast.error('Ops algo deu errado!', {
+        position: 'bottom-right',
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
       console.error(error);
     }
   };
+
   useEffect(() => {
     const token = localStorage.getItem('@TOKEN: ONLYPETS');
     async function getReports(): Promise<void> {
@@ -110,8 +182,8 @@ export const ReportsProvider = ({ children }: iReportsProviderProps) => {
         try {
           instance.defaults.headers.authorization = `Bearer ${token}`;
           const { data } = await instance.get<iReports[]>('reports');
-          console.log(data);
           setReports(data);
+          setIsModalOpen(false);
         } catch (error) {
           console.error(error);
         }

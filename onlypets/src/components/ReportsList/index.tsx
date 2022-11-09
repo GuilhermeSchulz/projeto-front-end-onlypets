@@ -10,8 +10,8 @@ export const ReportsList = () => {
   return (
     <StyledReportsList>
       {reports ? (
-        reports.map((report: iReports) => (
-          <ReportsItem key={report.id} report={report} />
+        reports.map((report: iReports, index) => (
+          <ReportsItem key={index} report={report} />
         ))
       ) : (
         <li className='no-reports'>Não existem denúncias</li>
