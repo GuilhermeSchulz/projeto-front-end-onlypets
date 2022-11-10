@@ -18,17 +18,24 @@ import { PetContext } from '../contexts/PetContext';
 
 export const Dashboard = () => {
   const { isModalOpen, reports } = useContext(ReportsContext);
-  const { showModalListPets, showModalAddPet, showModalFirstAccess, loading, user } =
-    useContext(Context);
-    const {setFilterPets, pets} = useContext(PetContext)
+  const {
+    showModalListPets,
+    showModalAddPet,
+    showModalFirstAccess,
+    loading,
+    user,
+  } = useContext(Context);
+  const { setFilterPets, pets } = useContext(PetContext);
 
-    useEffect(() => {
-      const getShelterPets = () =>{
-        const filter = pets?.filter((elem) => elem.userId === user?.id?.toString());
-        setFilterPets(filter);
-      }
-      getShelterPets() 
-    },[user])
+  useEffect(() => {
+    const getShelterPets = () => {
+      const filter = pets?.filter(
+        (elem) => elem.userId === user?.id?.toString()
+      );
+      setFilterPets(filter);
+    };
+    getShelterPets();
+  }, [user]);
 
   return (
     <div>
@@ -49,13 +56,13 @@ export const Dashboard = () => {
         </p>
       </ShelterDiv>
       <PetList />
-      {reports ? (
-        <>
-          <StyledUlTitle>Denuncias:</StyledUlTitle>
-          {!loading && <Loading />}
-          {reports ? <ReportsList /> : null}
-        </>
-      ) : null}
+
+      <>
+        <StyledUlTitle>Denuncias:</StyledUlTitle>
+        {!loading && <Loading />}
+        {reports ? <ReportsList /> : null}
+      </>
+
       {showModalListPets ? <ListPets /> : null}
       {showModalAddPet ? <AddPets /> : null}
       {showModalFirstAccess ? <FirstAcess /> : null}
