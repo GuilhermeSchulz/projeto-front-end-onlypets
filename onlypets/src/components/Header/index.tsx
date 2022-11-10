@@ -2,7 +2,7 @@ import { StyledHeader } from './style';
 import PublicLogo from '../../assets/public-logo.svg';
 import StrictLogo from '../../assets/strict-logo.svg';
 import { Button } from '../Button/styles';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { Context } from '../../contexts/user';
 import { useNavigate } from 'react-router-dom';
 import { PetContext } from '../../contexts/PetContext';
@@ -19,11 +19,27 @@ export const Header = () => {
     handleModalAddPet,
   } = useContext(Context);
   const { handlePets, setEditPet, reloadPets } = useContext(PetContext);
+
   function handleClick() {
     setOpen(!open);
   }
 
   const navigate = useNavigate();
+
+  const contentRef: React.MutableRefObject<any> = useRef();
+
+  useEffect(() => {
+    const handleOutclick = (evt: any) => {
+      const target = evt.target;
+      !contentRef.current?.contains(target) && setOpen(false);
+    };
+
+    document.addEventListener('mousedown', handleOutclick);
+
+    return () => {
+      document.removeEventListener('mousedown', handleOutclick);
+    };
+  }, []);
 
   return (
     <StyledHeader>
@@ -37,7 +53,7 @@ export const Header = () => {
             )}
           </span>
           {open ? (
-            <ul className='header-container__menu' role='menu'>
+            <ul className='header-container__menu' role='menu' ref={contentRef}>
               <li
                 onClick={() => {
                   user.shelter === 'true'
@@ -76,7 +92,7 @@ export const Header = () => {
               </li>
               <li
                 onClick={() => {
-                  reloadPets()
+                  reloadPets();
                   logout();
                   handleClick();
                 }}

@@ -9,7 +9,7 @@ export const StyledUlTitle = styled.h2`
 export const StyledUl = styled.ul`
   width: 90%;
   max-width: 1300px;
-  margin: 0 auto;
+  margin: 50px auto;
   display: flex;
   gap: 20px;
   overflow-y: auto;
