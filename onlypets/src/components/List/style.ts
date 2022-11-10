@@ -12,7 +12,7 @@ export const StyledUl = styled.ul`
   margin: 0 auto;
   display: flex;
   gap: 20px;
-  overflow-x: auto;
+  overflow-y: auto;
   padding: 50px 0 100px 0;
 
   .card {
