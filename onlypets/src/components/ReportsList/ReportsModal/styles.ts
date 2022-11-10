@@ -31,6 +31,10 @@ export const StyledReportsModal = styled.div`
       .modal--text {
         margin-bottom: 16px;
       }
+
+      .dark--text {
+        font-weight: var(--text-weight-1);
+      }
     }
   }
 `;
