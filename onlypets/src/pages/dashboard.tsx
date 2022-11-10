@@ -13,11 +13,12 @@ import { ListPets } from '../components/ListPets';
 import { AddPets } from '../components/AddPets';
 import { FirstAcess } from '../components/FirstAcess';
 import { Context } from '../contexts/user';
+import Loading from '../components/Loading';
 import { PetContext } from '../contexts/PetContext';
 
 export const Dashboard = () => {
   const { isModalOpen, reports } = useContext(ReportsContext);
-  const { showModalListPets, showModalAddPet, showModalFirstAccess, user } =
+  const { showModalListPets, showModalAddPet, showModalFirstAccess, loading, user } =
     useContext(Context);
     const {setFilterPets, pets} = useContext(PetContext)
 
@@ -51,7 +52,8 @@ export const Dashboard = () => {
       {reports ? (
         <>
           <StyledUlTitle>Denuncias:</StyledUlTitle>
-          <ReportsList />
+          {!loading && <Loading />}
+          {reports ? <ReportsList /> : null}
         </>
       ) : null}
       {showModalListPets ? <ListPets /> : null}

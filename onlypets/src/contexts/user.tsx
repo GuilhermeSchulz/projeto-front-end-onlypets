@@ -14,6 +14,7 @@ import { useNavigate } from 'react-router-dom';
 // import jwtDecode from 'jwt-decode';
 import { iFirstAcess } from '../components/FirstAcess';
 import { PetContext } from './PetContext';
+
 interface iUserProviderProps {
   children: ReactNode;
 }
@@ -86,6 +87,7 @@ export interface iUser {
   size?: string;
   age?: string;
   city?: string;
+  title?: string;
 }
 
 interface iLoginArgs {

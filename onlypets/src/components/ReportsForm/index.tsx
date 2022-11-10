@@ -14,12 +14,14 @@ import useOutClick from '../../hooks/useOutClick';
 import { Context } from '../../contexts/user';
 
 const schema = yup.object().shape({
+  title: yup.string().required('Endereço da denúncia é obrigatório'),
   adress: yup.string().required('Endereço da denúncia é obrigatório'),
   description: yup.string().required('Informação da denúncia é obrigatória'),
 });
 
 interface iReportsForm {
   adress: string;
+  title: string;
   city: string;
   description: string;
 }
@@ -50,6 +52,18 @@ export const ReportsForm = () => {
           onClick={() => setOpenModalReports(false)}
         />
         <form onSubmit={handleSubmit(submitReport)}>
+          <StyledFieldInput>
+            Título:
+            <input
+              className='input--small'
+              type='text'
+              placeholder='Digite o título'
+              {...register('title')}
+            />
+            <p className='form__label--error form_label'>
+              {errors.title?.message}
+            </p>
+          </StyledFieldInput>
           <StyledFieldInput>
             Endereço:
             <input
