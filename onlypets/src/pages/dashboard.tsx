@@ -5,7 +5,7 @@ import { StyledUlTitle } from '../components/List/style';
 import { PetList } from '../components/PetList';
 import { ReportsList } from '../components/ReportsList';
 import { ShelterDiv } from '../components/ShelterDescription/style';
-import { ReportsModal } from '../components/ReportsList/ReportsModal/';
+import { ReportsModal } from '../components/ReportsList/ReportsModal';
 import { useContext } from 'react';
 import { ReportsContext } from '../contexts/ReportsContext';
 import { ListPets } from '../components/ListPets';

@@ -11,7 +11,10 @@ export const ReportsList = () => {
     <StyledReportsList>
       {reports ? (
         reports.map((report: iReports, index) => (
-          <ReportsItem key={index} report={report} />
+          <ReportsItem 
+          key={index} 
+          report={report}
+          />
         ))
       ) : (
         <li className='no-reports'>Não existem denúncias</li>

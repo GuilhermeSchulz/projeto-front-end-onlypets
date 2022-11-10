@@ -4,7 +4,7 @@ import { StyledReportItem } from './styles';
 import { HiOutlineDotsCircleHorizontal } from 'react-icons/hi';
 
 export const ReportsItem = ({ report }: any) => {
-  const { openModal, deleteReport } = useContext(ReportsContext);
+  const { openModal, deleteReport, setDataModal } = useContext(ReportsContext);
   const [open, setOpen] = useState<React.SetStateAction<boolean>>(false);
 
   const contentRef: React.MutableRefObject<any> = useRef();
@@ -15,6 +15,7 @@ export const ReportsItem = ({ report }: any) => {
 
   const handleView = () => {
     openModal();
+    setDataModal(report)
     setOpen(false);
   };
 
@@ -40,7 +41,7 @@ export const ReportsItem = ({ report }: any) => {
         className='circle__option'
       />
       {open ? (
-        <ul id={report.id} ref={contentRef} className='option__ul'>
+        <ul id={report.id.toString()} ref={contentRef} className='option__ul'>
           <li onClick={() => handleView()}>Visualizar</li>
           <li onClick={() => deleteReport(report.id)}>Excluir</li>
         </ul>
