@@ -41,11 +41,13 @@ export interface iReportsContext {
   isModalOpen: boolean;
   closeModal(): void;
   reports: iReports[] | null | undefined;
-  setReports: React.Dispatch<React.SetStateAction<iReports[] | null | undefined>>;
+  setReports: React.Dispatch<
+    React.SetStateAction<iReports[] | null | undefined>
+  >;
   deleteReport(id: number): void;
   editReport(id: number, data: iEditReport): Promise<void>;
-  dataModal: iReports | null
-  setDataModal: React.Dispatch<React.SetStateAction<iReports | null>>
+  dataModal: iReports | null;
+  setDataModal: React.Dispatch<React.SetStateAction<iReports | null>>;
 }
 
 interface iEditReport {
@@ -67,9 +69,9 @@ export const ReportsProvider = ({ children }: iReportsProviderProps) => {
   const [reports, setReports] = useState([] as iReports[] | null | undefined);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [dataModal, setDataModal] = useState<iReports | null>(null)
+  const [dataModal, setDataModal] = useState<iReports | null>(null);
 
-  const { user, setOpenModalReports } = useContext(Context);
+  const { user, setOpenModalReports, setLoading } = useContext(Context);
   const token = localStorage.getItem('@TOKEN: ONLYPETS');
   const openModal = (): void => {
     setIsModalOpen(!isModalOpen);
@@ -88,6 +90,8 @@ export const ReportsProvider = ({ children }: iReportsProviderProps) => {
       setReports(data);
     } catch (error) {
       console.error(error);
+    } finally {
+      setLoading(true);
     }
   };
 
@@ -131,7 +135,7 @@ export const ReportsProvider = ({ children }: iReportsProviderProps) => {
     try {
       instance.defaults.headers.authorization = `Bearer ${token}`;
       await instance.delete<void>(`reports/${id}`);
-      setReports(reports?.filter((report) => report.id !==id));
+      setReports(reports?.filter((report) => report.id !== id));
       toast.success('Denúncia deletada com sucesso!', {
         position: 'bottom-right',
         autoClose: 2000,
@@ -212,7 +216,7 @@ export const ReportsProvider = ({ children }: iReportsProviderProps) => {
         editReport,
         setReports,
         dataModal,
-        setDataModal
+        setDataModal,
       }}
     >
       {children}
